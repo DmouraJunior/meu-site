@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Intranet DGF</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+<style>
+/* --- NOVOS ESTILOS PARA LOGIN --- */
+#tela-login {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Marca d'água em mosaico no fundo do login */
+    background: #2c3e50 url('logo-pernambuco-ses.png') repeat;
+    background-size: 150px; /* Tamanho de cada quadrado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    width: 300px;
+    position: relative;
+}
+/* Estilo para a imagem no login */
+.img-login {
+    width: 150px;
+    margin-bottom: 10px;
+}
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#erro-login { color: #e74c3c; font-size: 13px; margin-bottom: 10px; display: none; }
+
+/* --- SEUS ESTILOS ORIGINAIS --- */
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+header {
+    /* Marca d'água em mosaico no cabeçalho */
+    background: #2c3e50 url('logo-pernambuco-ses.png') repeat;
+    background-size: 80px; 
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+}
+
+nav {
+    /* Marca d'água em mosaico no menu lateral */
+    background: #34495e url('logo-pernambuco-ses.png') repeat;
+    background-size: 100px;
+    width: 220px;
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px;
+}
+
+/* Estilo para a imagem no menu lateral */
+.img-nav {
+    width: 120px;
+    margin: 10px auto;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+nav button {
+    background: #1abc9c;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+/* SUBMENU */
+.submenu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+.submenu button {
+    background: #16a085;
+    font-size: 13px;
+}
+
+/* CONTEÚDO */
+section {
+    padding: 20px;
+    flex: 1;
+}
+
+/* ESTILO PARA LINKS DE CONTRACHEQUE */
+.card-contracheque {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #2c3e50;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background: white;
+    transition: transform 0.2s;
+    margin: 10px;
+    width: 200px;
+}
+
+.card-contracheque:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-contracheque img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+/* ESTILO LISTA ANIVERSARIANTES */
+.aniv-secao {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 5px solid #1abc9c;
+}
+.aniv-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+.hoje {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+}
+
+/* ESTILO NOTICIAS */
+.noticia-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid #1abc9c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ESTILO FORMULÁRIO DE EVENTOS */
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 600px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+/* ESTILO PARA O BOTÃO DO OLHO */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    cursor: pointer;
+    color: #7f8c8d;
+    user-select: none;
+}
+
+.btn-enviar {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+.btn-enviar:hover {
+    background: #16a085;
+}
+
+/* ESTILO PARA O ORGANOGRAMA */
+.organograma-container {
+    width: 100%;
+    height: 80vh;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+}
+
+/* ESTILO PASSOS WORKFLOW */
+.workflow-step {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+.workflow-step::after {
+    content: '➡️';
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+.workflow-step:last-child::after { content: ''; }
+
+/* --- ESTILO BIBLIOTECA (NOVO) --- */
+.biblioteca-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.livro-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    border-top: 5px solid #1abc9c;
+}
+.livro-capa-placeholder {
+    background: #bdc3c7;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="tela-login">
+    <div class="login-box">
+        <img src="imagem-dgf.png" alt="Logo DGF" class="img-login">
+        <h2 style="color:#2c3e50">Acesso Portal DGF</h2>
+        <input type="text" id="usuario" placeholder="Usuário (Edson)">
+        <div style="position: relative;">
+            <input type="password" id="senha" placeholder="Senha">
+            <span class="toggle-password" style="top: 20px;" onclick="toggleVisibility('senha')">👁️</span>
+        </div>
+        <p id="erro-login">Usuário ou senha inválidos!</p>
+        <button class="btn-enviar" onclick="logar()">Entrar</button>
+    </div>
+</div>
+
+<div id="app" style="display:none;">
+    <header>
+        <h1 style="position:relative; z-index:2;">Portal - Diretoria Geral de Finanças</h1>
+        <button onclick="logout()" style="float:right; margin-top:-35px; background:#e74c3c; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px; position:relative; z-index:2;">Sair</button>
+    </header>
+
+    <div class="container">
+        <nav>
+            <img src="imagem-dgf.png" alt="Logo DGF" class="img-nav">
+            
+            <button onclick="mostrar('home')">🏠 Início</button>
+
+            <button onclick="toggleMenu()">📢 Comunicação</button>
+            <div id="submenuComunicacao" class="submenu">
+                <button onclick="mostrar('noticias')">📰 Notícias</button>
+                <button onclick="mostrar('eventos')">📅 Agenda de Eventos</button>
+            </div>
+
+            <button onclick="toggleGestao()">👥 Gestão de Pessoas</button>
+            <div id="submenuGestao" class="submenu">
+                <button onclick="mostrar('avaliacao')">📊 Avaliação de Desempenho</button>
+                <button onclick="mostrar('contracheque')">💰 Contracheque</button>
+                <button onclick="mostrar('feedback')">💬 Feedback</button>
+                <button onclick="mostrar('mapa')">🗺️ Mapa DGF</button>
+                <button onclick="mostrar('onboarding')">🧑‍💼 Onboarding</button>
+                <button onclick="mostrar('oportunidades')">🚀 Oportunidades Internas</button>
+            </div>
+
+            <button onclick="toggleSocial()">🎉 Social</button>
+            <div id="submenuSocial" class="submenu">
+                <button onclick="mostrar('aniversariantes')">🎂 Aniversariantes</button>
+                <button onclick="mostrar('chegou')">🆕 Quem Chegou</button>
+                <button onclick="mostrar('usuarios')">👤 Usuários</button>
+            </div>
+
+            <button onclick="toggleCorporativo()">🏢 Corporativo</button>
+            <div id="submenuCorporativo" class="submenu">
+                <button onclick="mostrar('organograma')">📊 Organograma</button>
+                <button onclick="mostrar('reserva')">📅 Reserva de Sala</button>
+                <button onclick="mostrar('workflow')">⚙️ Workflow</button>
+            </div>
+
+            <button onclick="toggleEduca()">🎓 DGF Educa</button>
+            <div id="submenuEduca" class="submenu">
+                <button onclick="mostrar('biblioteca')">📚 Biblioteca DGF</button>
+                <button onclick="mostrar('cursos')">🎓 Cursos</button>
+            </div>
+
+            <button onclick="mostrar('senha_page')" style="background:#34495e; margin-top:20px; border-top:1px solid #555;">🔑 Alterar Senha</button>
+        </nav>
+
+        <section id="conteudo">
+            <h2>Bem-vindo!</h2>
+            <p>Selecione uma opção ao lado.</p>
+        </section>
+    </div>
+</div>
+
+<script>
+/* --- LÓGICA DE ACESSO --- */
+function logar() {
+    const user = document.getElementById('usuario').value;
+    const pass = document.getElementById('senha').value;
+    const senhaSalva = localStorage.getItem('senha_Edson') || "1234";
+
+    if(user.toLowerCase() === "edson" && pass === senhaSalva) {
+        document.getElementById('tela-login').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.getElementById('erro-login').style.display = 'none';
+    } else {
+        document.getElementById('erro-login').style.display = 'block';
+    }
+}
+
+function logout() {
+    location.reload();
+}
+
+function toggleVisibility(id) {
+    const el = document.getElementById(id);
+    el.type = el.type === "password" ? "text" : "password";
+}
+
+function salvarNovaSenha() {
+    const atual = document.getElementById('senha_atual').value;
+    const nova = document.getElementById('nova_senha_input').value;
+    const repetir = document.getElementById('repetir_senha_input').value;
+    
+    const senhaSalva = localStorage.getItem('senha_Edson') || "1234";
+
+    if(atual !== senhaSalva) {
+        alert("A senha atual está incorreta!");
+        return;
+    }
+    if(nova === "" || repetir === "") {
+        alert("Preencha os campos de nova senha!");
+        return;
+    }
+    if(nova !== repetir) {
+        alert("As novas senhas não coincidem!");
+        return;
+    }
+
+    localStorage.setItem('senha_Edson', nova);
+    alert("Senha alterada com sucesso! Use a nova senha no próximo login.");
+    mostrar('home');
+}
+
+/* --- SEUS DADOS E FUNÇÕES ORIGINAIS --- */
+const listaAniversariantes = [
+    { nome: "João Silva", data: "10/04", setor: "Financeiro" },
+    { nome: "Maria Oliveira", data: "12/04", setor: "RH" },
+    { nome: "Exemplo Teste", data: "10/04", setor: "DGF" }
+];
+
+const listaNoticias = [
+    { data: "10/04/2026", titulo: "Nova Intranet DGF", texto: "Seja bem-vindo ao nosso novo portal de comunicação interna. Aqui você encontra tudo o que precisa." },
+    { data: "09/04/2026", titulo: "Comunicado Geral", texto: "Lembramos a todos sobre o preenchimento das metas semanais no Trello." }
+];
+
+function toggleMenu(){
+    let menu = document.getElementById("submenuComunicacao");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+function toggleGestao(){
+    let menu = document.getElementById("submenuGestao");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+function toggleSocial(){
+    let menu = document.getElementById("submenuSocial");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+function toggleCorporativo(){
+    let menu = document.getElementById("submenuCorporativo");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+function toggleEduca(){
+    let menu = document.getElementById("submenuEduca");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+function detalharSetor(nome, resp, ramal) {
+    document.getElementById('detalhes-setor').style.display = 'block';
+    document.getElementById('det-nome').innerText = nome;
+    document.getElementById('det-resp').innerText = resp;
+    document.getElementById('det-ramal').innerText = ramal;
+    // Rola a página para os detalhes aparecerem
+    document.getElementById('detalhes-setor').scrollIntoView({ behavior: 'smooth' });
+}
+
+function mostrar(pagina){
+    let conteudo = document.getElementById("conteudo");
+
+    if (pagina === "home") {
+    conteudo.innerHTML = `
+    <div style="
+        display: flex; 
+        flex-direction: column; 
+        gap: 25px; 
+        height: 85vh; 
+        overflow-y: auto; 
+        padding: 15px;
+        background: #f4f7f6;
+        border-radius: 8px;
+    ">
+        
+        <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <div style="background: #0079bf; color: white; padding: 12px; text-align: center; font-weight: bold; font-family: sans-serif;">📋 QUADRO DE DEMANDAS - TRELLO</div>
+            <iframe src="https://trello.com/b/1Vh47uiZ.html" 
+                    style="width: 100%; height: 1200px; border: none;"></iframe>
+        </div>
+
+        <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <div style="background: #34495e; color: white; padding: 10px; text-align: center; font-weight: bold; font-family: sans-serif;">📅 AGENDA DGF</div>
+            <iframe src="https://calendar.google.com/calendar/embed?src=Y2NmZ292cGVAZ21haWwuY29t&ctz=America%2FRecife" 
+                    style="width: 100%; height: 600px; border: none;"></iframe>
+        </div>
+
+        <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <div style="background: #27ae60; color: white; padding: 10px; text-align: center; font-weight: bold; font-family: sans-serif;">📑 Chatboot</div>
+            <iframe src="https://www.sefaz.pe.gov.br" 
+                    style="width: 100%; height: 600px; border: none;"></iframe>
+        </div>
+
+    </div>
+
+    <style>
+        div::-webkit-scrollbar {
+            width: 12px;
+        }
+        div::-webkit-scrollbar-track {
+            background: #e1e1e1;
+            border-radius: 10px;
+        }
+        div::-webkit-scrollbar-thumb {
+            background: #0079bf; /* Cor combinando com o Trello */
+            border-radius: 10px;
+            border: 2px solid #e1e1e1;
+        }
+        div::-webkit-scrollbar-thumb:hover {
+            background: #005a8e;
+        }
+    </style>
+    `;
+}
+
+    if(pagina === "noticias"){
+        let html = "<h2>📰 Notícias</h2>";
+        listaNoticias.forEach(n => {
+            html += `
+                <div class="noticia-card">
+                    <small style="color:#7f8c8d;">📅 ${n.data}</small>
+                    <h3 style="margin: 10px 0;">${n.titulo}</h3>
+                    <p>${n.texto}</p>
+                </div>
+            `;
+        });
+        conteudo.innerHTML = html;
+    }
+
+    if(pagina === "eventos"){
+    conteudo.innerHTML = `
+        <h2 style="margin-bottom: 25px;">📅 Agenda de Eventos</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+            
+            <div style="background: white; border-radius: 10px; border-top: 5px solid #e74c3c; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #e74c3c; font-weight: bold; font-size: 11px; text-transform: uppercase;">VAGAS LIMITADAS</span>
+                    <span style="color: #95a5a6; font-size: 12px;">ID: #001</span>
+                </div>
+                <h3 style="margin: 15px 0 10px; color: #2c3e50;">Workshop: Excel Avançado</h3>
+                <p style="color: #7f8c8d; font-size: 14px;">Focado em automação financeira e dashboards. Preencha o formulário abaixo para garantir sua vaga.</p>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #2c3e50; font-weight: bold;">R$ 50,00</div>
+            </div>
+            
+            <div style="background: white; border-radius: 10px; border-top: 5px solid #3498db; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #3498db; font-weight: bold; font-size: 11px; text-transform: uppercase;">GOVERNANÇA</span>
+                    <span style="color: #95a5a6; font-size: 12px;">ID: #003</span>
+                </div>
+                <h3 style="margin: 15px 0 10px; color: #2c3e50;">E-Fisco: Gestão de Teto de Gastos de GD3</h3>
+                <p style="color: #7f8c8d; font-size: 14px;">Capacitar os servidores para melhor planejamento, orçamentação, controle e gestão da despesa pública. Preencha o formulário abaixo para garantir sua vaga.</p>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #27ae60; font-weight: bold;">GRATUITO</div>
+            </div>
+
+            <div style="background: white; border-radius: 10px; border-top: 5px solid #27ae60; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #27ae60; font-weight: bold; font-size: 11px; text-transform: uppercase;">ENTRADA LIVRE</span>
+                    <span style="color: #95a5a6; font-size: 12px;">ID: #002</span>
+                </div>
+                <h3 style="margin: 15px 0 10px; color: #2c3e50;">Palestra: Bem-Estar</h3>
+                <p style="color: #7f8c8d; font-size: 14px;">Saúde mental e produtividade no ambiente de trabalho.</p>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #27ae60; font-weight: bold;">GRATUITO</div>
+            </div>
+
+            <div style="background: #f8f9fa; border-radius: 10px; border-top: 5px solid #95a5a6; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; opacity: 0.7;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #7f8c8d; font-weight: bold; font-size: 11px; text-transform: uppercase;">ENCERRADO</span>
+                    <span style="color: #95a5a6; font-size: 12px;">ID: #000</span>
+                </div>
+                <h3 style="margin: 15px 0 10px; color: #7f8c8d;">Power BI Desktop</h3>
+                <p style="color: #95a5a6; font-size: 14px;">Inscrições finalizadas. Novas turmas em breve.</p>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd; color: #e74c3c; font-weight: bold;">LOTADO</div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button onclick="let f = document.getElementById('form-recolhivel'); f.style.display = (f.style.display === 'none' ? 'block' : 'none'); window.location.hash='form-recolhivel'" 
+                style="background: #2c3e50; color: white; border: none; padding: 15px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;">
+                📝 Clique aqui para se Inscrever
+            </button>
+        </div>
+
+        <div id="form-recolhivel" class="form-container" style="display: none; border: 1px solid #ddd; padding: 25px; border-radius: 10px; background: #fefefe;">
+            <h3 style="margin-top:0;">Formulário de Inscrição de Eventos</h3>
+            <form action="https://formspree.io/f/xojpooka" method="POST">
+                
+                <div class="form-group">
+                    <label>Escolha o Evento/Curso:</label>
+                    <select name="Evento_Selecionado" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                        <option value="" disabled selected>Selecione uma opção...</option>
+                        <option value="Workshop Excel Avançado">Workshop: Excel Avançado (R$ 50,00)</option>
+                        <option value="E-Fisco Gestão de Teto">E-Fisco: Gestão de Teto de Gastos (Gratuito)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome Completo:</label>
+                    <input type="text" name="Nome" required placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label>CPF:</label>
+                    <input type="text" name="CPF" required placeholder="000.000.000-00">
+                </div>
+                <div class="form-group">
+                    <label>Matrícula:</label>
+                    <input type="text" name="Matricula" required placeholder="Digite sua matrícula">
+                </div>
+                <div class="form-group">
+                    <label>Setor:</label>
+                    <input type="text" name="Setor" required placeholder="Digite seu setor">
+                </div>
+                <div class="form-group">
+                    <label>Diretoria:</label>
+                    <input type="text" name="Diretoria" required placeholder="Digite sua diretoria">
+                </div>
+                <button type="submit" class="btn-enviar" style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Finalizar Inscrição</button>
+            </form>
+        </div>
+    `;
+}
+
+    if(pagina === "contracheque"){
+        conteudo.innerHTML = `
+        <h2>Emissão de Contracheque</h2>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <a href="https://holerit.rmterceirizacao.com.br" target="_blank" class="card-contracheque">
+                <img src="https://cdn-icons-png.flaticon.com/512/11266/11266929.png" alt="RM">
+                <br><strong>RM Terceirização</strong>
+            </a>
+            <a href="https://nps.pe.gov.br/PORTALV2/#/" target="_blank" class="card-contracheque">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Portal PE">
+                <br><strong>Servidores da Casa e Comissionados</strong>
+            </a>
+        </div>
+        `;
+    }
+
+    if(pagina === "aniversariantes"){
+        const agora = new Date();
+        const diaAtual = agora.getDate().toString().padStart(2, '0');
+        const mesAtual = (agora.getMonth() + 1).toString().padStart(2, '0');
+        const hojeString = `${diaAtual}/${mesAtual}`;
+        let hojeHTML = "";
+        let mesHTML = "";
+        listaAniversariantes.forEach(pessoa => {
+            let item = `<div class="aniv-item"><strong>${pessoa.data}</strong> - ${pessoa.nome} (${pessoa.setor})</div>`;
+            if(pessoa.data === hojeString) { hojeHTML += item; } 
+            else if (pessoa.data.split('/')[1] === mesAtual) { mesHTML += item; }
+        });
+        conteudo.innerHTML = `
+            <h2>🎂 Aniversariantes</h2>
+            <div class="aniv-secao hoje">
+                <h3>🎈 Aniversariantes de Hoje (${hojeString})</h3>
+                ${hojeHTML || "<p>Ninguém faz aniversário hoje.</p>"}
+            </div>
+            <div class="aniv-secao">
+                <h3>📅 Outros Aniversariantes do Mês</h3>
+                ${mesHTML || "<p>Nenhum outro aniversariante este mês.</p>"}
+            </div>
+        `;
+    }
+
+    if(pagina === "organograma"){
+        conteudo.innerHTML = `
+            <h2>📊 Organograma DGF</h2>
+            <div class="organograma-container">
+                <iframe src="https://dmourajunior.github.io/consilta-online/" 
+                        style="width:100%; height:100%; border:none;" 
+                        title="Organograma"></iframe>
+            </div>
+        `;
+    }
+
+    if(pagina === "senha_page"){
+        conteudo.innerHTML = `
+            <h2>🔑 Alterar Minha Senha</h2>
+            <div class="form-container">
+                <div class="form-group">
+                    <label>Senha Atual:</label>
+                    <input type="password" id="senha_atual" placeholder="Digite a senha atual">
+                    <span class="toggle-password" onclick="toggleVisibility('senha_atual')">👁️</span>
+                </div>
+                <div class="form-group">
+                    <label>Nova Senha:</label>
+                    <input type="password" id="nova_senha_input" placeholder="Digite a nova senha">
+                    <span class="toggle-password" onclick="toggleVisibility('nova_senha_input')">👁️</span>
+                </div>
+                <div class="form-group">
+                    <label>Repetir Nova Senha:</label>
+                    <input type="password" id="repetir_senha_input" placeholder="Repita a nova senha">
+                    <span class="toggle-password" onclick="toggleVisibility('repetir_senha_input')">👁️</span>
+                </div>
+                <button class="btn-enviar" onclick="salvarNovaSenha()">Salvar Alteração</button>
+            </div>
+        `;
+    }
+
+    if(pagina === "reserva"){ 
+        conteudo.innerHTML = `
+            <h2>📅 Reserva de Sala de Reunião</h2>
+            <div class="form-container">
+                <h3>Solicitar Agendamento</h3>
+                <form action="https://formspree.io/f/xojpooka" method="POST">
+                    <div class="form-group">
+                        <label>Funcionário Solicitante:</label>
+                        <input type="text" name="Nome" required placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label>Escolha a Sala:</label>
+                        <select name="Sala" required>
+                            <option value="">Selecione uma sala...</option>
+                            <option value="Sala 01 - Principal">Sala 01 - Principal</option>
+                            <option value="Sala 02 - Reunião Rápida">Sala 02 - Reunião Rápida</option>
+                            <option value="Auditório">Auditório</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Data:</label>
+                        <input type="date" name="Data" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário de Início:</label>
+                        <input type="time" name="Inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário de Término:</label>
+                        <input type="time" name="Termino" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Motivo da Reunião:</label>
+                        <input type="text" name="Motivo" required placeholder="Ex: Alinhamento mensal">
+                    </div>
+                    <button type="submit" class="btn-enviar">Solicitar Reserva</button>
+                </form>
+            </div>
+        `; 
+    }
+
+    if(pagina === "feedback"){
+        conteudo.innerHTML = `
+            <h2>💬 Canal de Feedback</h2>
+            <p>Sua opinião é fundamental para melhorarmos nosso ambiente de trabalho.</p>
+            <div class="form-container">
+                <form action="https://formspree.io/f/xojpooka" method="POST">
+                    <input type="hidden" name="_subject" value="Novo Feedback Recebido - Intranet">
+                    <div class="form-group">
+                        <label>Tipo de Feedback:</label>
+                        <select name="Tipo" required>
+                            <option value="">Selecione...</option>
+                            <option value="Sugestão">💡 Sugestão</option>
+                            <option value="Elogio">👏 Elogio</option>
+                            <option value="Crítica">📢 Crítica Construtiva</option>
+                            <option value="Dúvida">❓ Dúvida/Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sua Mensagem:</label>
+                        <textarea name="Mensagem" rows="6" 
+                            style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Arial; box-sizing: border-box;" 
+                            placeholder="Escreva aqui seu comentário..." required></textarea>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 10px; background: #f9f9f9; padding: 10px; border-radius: 4px;">
+                        <input type="checkbox" id="anonimo" name="Anonimo" value="Sim" style="width: auto;">
+                        <label for="anonimo" style="margin: 0; font-weight: normal;">Enviar como anônimo</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Seu Nome (Opcional):</label>
+                        <input type="text" name="Nome_Funcionario" placeholder="Seu nome (deixe vazio para anônimo)">
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Feedback</button>
+                </form>
+            </div>
+        `;
+    }
+
+    if(pagina === "onboarding"){
+        conteudo.innerHTML = `
+            <h2>👋 Bem-vindo à Família DGF!</h2>
+            <p>Preparamos este guia para ajudar você nos seus primeiros dias conosco.</p>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="form-container" style="flex: 1; min-width: 300px;">
+                    <h3>✅ Check-list de Integração</h3>
+                    <ul style="list-style: none; padding: 0; line-height: 2.0;">
+                        <li><input type="checkbox"> Retirar crachá no RH</li>
+                        <li><input type="checkbox"> Configurar e-mail corporativo</li>
+                        <li><input type="checkbox"> Assinar termo de confidencialidade</li>
+                        <li><input type="checkbox"> Conhecer a equipe e o gestor</li>
+                        <li><input type="checkbox"> Receber kit de boas-vindas</li>
+                    </ul>
+                </div>
+
+                <div class="form-container" style="flex: 1; min-width: 300px; border-left: 5px solid #3498db;">
+                    <h3>📚 Documentos Essenciais</h3>
+                    <p>Baixe os manuais abaixo para entender nossa cultura:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="#" style="color: #2980b9; text-decoration: none;">📄 Manual do Colaborador.pdf</a>
+                        <a href="#" style="color: #2980b9; text-decoration: none;">📄 Guia de Benefícios.pdf</a>
+                        <a href="#" style="color: #2980b9; text-decoration: none;">📄 Política de Segurança.pdf</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container" style="margin-top: 20px; max-width: 100%;">
+                <h3>🚀 Precisa de ajuda?</h3>
+                <p>Se tiver qualquer dúvida sobre sua chegada, envie uma mensagem rápida para o RH por aqui:</p>
+                <form action="https://formspree.io/f/xojpooka" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="Nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="Duvida_Onboarding" rows="3" 
+                            style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Arial; box-sizing: border-box;" 
+                            placeholder="Qual sua dúvida inicial?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar" style="width: auto; padding: 10px 30px;">Enviar para o RH</button>
+                </form>
+            </div>
+        `;
+    }
+
+    if(pagina === "oportunidades"){
+        conteudo.innerHTML = `
+            <h2>🚀 Oportunidades Internas</h2>
+            <p>Cresça com a gente! Confira as vagas abertas para recrutamento interno.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="noticia-card" style="margin-bottom: 0;">
+                    <span style="background: #1abc9c; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px;">ABERTA</span>
+                    <h3 style="margin: 10px 0;">Assessor Administrativo</h3>
+                    <p><strong>Setor:</strong> Coordenação de Liquidação Tesouro</p>
+                    <p style="font-size: 14px;">Requisitos: 1 ano de casa e conhecimento em Excel avançado.</p>
+                </div>
+
+                <div class="noticia-card" style="margin-bottom: 0; border-left-color: #f39c12;">
+                    <span style="background: #f39c12; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px;">EM BREVE</span>
+                    <h3 style="margin: 10px 0;">Coordenador</h3>
+                    <p><strong>Setor:</strong> Nova Coordenação</p>
+                    <p style="font-size: 14px;">Requisitos: Experiência em gestão e proatividade.</p>
+                </div>
+            </div>
+
+            <div class="form-container" style="max-width: 100%;">
+                <h3>📩 Manifestar Interesse</h3>
+                <form action="https://formspree.io/f/xojpooka" method="POST">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div class="form-group" style="flex: 1; min-width: 250px;">
+                            <label>Seu Nome:</label>
+                            <input type="text" name="Nome_Candidato" required placeholder="">
+                        </div>
+                        <div class="form-group" style="flex: 1; min-width: 250px;">
+                            <label>Vaga de Interesse:</label>
+                            <select name="Vaga_Interesse" required>
+                                <option value="">Selecione a vaga...</option>
+                                <option value="Assessor Administrativo">Assessor Administrativo</option>
+                                <option value="Coordenador">Coordenador</option>
+                                <option value="Outros">Outros (Banco de Talentos)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Por que você quer essa vaga?</label>
+                        <textarea name="Motivacao" rows="3" 
+                            style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px;" 
+                            placeholder="Conte um pouco sobre suas motivações..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar" style="width: auto; padding: 12px 40px;">Enviar Candidatura</button>
+                </form>
+            </div>
+        `;
+    }
+
+    if(pagina === "workflow"){ 
+        conteudo.innerHTML = `
+            <h2>⚙️ Workflow (Fluxos de Trabalho)</h2>
+            <p>Entenda como funcionam os principais processos da DGF.</p>
+
+            <div class="form-container" style="max-width: 100%; margin-bottom: 20px;">
+                <h3>📑 Fluxo: Liquidação Tesouro</h3>
+                <div style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                    <div class="workflow-step">
+                        <strong>1. Processo</strong><br><small>Colaborador faz uma análise bem detalhada do processo</small>
+                    </div>
+                    <div class="workflow-step">
+                        <strong>2. Documento Hábil (DH)</strong><br><small>O colaborador lança o "DH"</small>
+                    </div>
+                    <div class="workflow-step">
+                        <strong>3. Liquidação</strong><br><small>O colaborador realiza a Liquidação</small>
+                    </div>
+                    <div class="workflow-step">
+                        <strong>4. Entrega</strong><br><small>O colaborador envia o processo para aréa demandante</small>
+                    </div>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background: #34495e; color: white;">
+                        <th style="padding: 10px; text-align: left;">Etapa</th>
+                        <th style="padding: 10px; text-align: left;">Responsável</th>
+                        <th style="padding: 10px; text-align: left;">Prazo Médio</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px;">Aprovação do Processo</td>
+                        <td style="padding: 10px;">Coordenador do Setor</td>
+                        <td style="padding: 10px;">24 horas</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px;">Liquidação do Processo</td>
+                        <td style="padding: 10px;">Analistas</td>
+                        <td style="padding: 10px;">3 a 5 dias</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="noticia-card" style="flex: 1; min-width: 250px;">
+                    <h3>🆘 Dúvidas em Processos?</h3>
+                    <p>Cada setor tem um manual de workflow detalhado. Caso precise, abra um chamado de suporte ao processo.</p>
+                    <button class="btn-enviar" style="width: auto;" onclick="alert('Link para manuais de processo')">Ver Manuais</button>
+                </div>
+            </div>
+        `; 
+    }
+
+    if(pagina === "biblioteca"){
+        conteudo.innerHTML = `
+            <h2>📚 Biblioteca DGF</h2>
+            <p>Indicações de leitura para o crescimento da nossa equipe.</p>
+            
+            <div class="biblioteca-grade" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                    <img src="https://books.google.com/books/content?id=8D99DQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Pai Rico Pai Pobre" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
+                    <h3>Pai Rico, Pai Pobre</h3>
+                    <p><small>Robert Kiyosaki</small></p>
+                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Essencial para entender ativos e passivos.</p>
+                </div>
+
+                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                    <img src="https://books.google.com/books/content?id=XmY_BAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Essencialismo" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
+                    <h3>Essencialismo</h3>
+                    <p><small>Greg McKeown</small></p>
+                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Para aprendermos a priorizar o que é vital.</p>
+                </div>
+
+                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                    <img src="https://books.google.com/books/content?id=0XFmDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Radical Candor" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
+                    <h3>Empatia Assertiva</h3>
+                    <p><small>Kim Scott</small></p>
+                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Como dar feedbacks honestos e humanos.</p>
+                </div>
+            </div>
+
+            <div class="form-container" style="max-width: 100%; margin-top: 30px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <h3>💡 Indique um Livro</h3>
+                <form action="https://formspree.io/f/xojpooka" method="POST">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Título do Livro:</label>
+                        <input type="text" name="Livro_Titulo" required placeholder="Ex: A Meta" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Por que você indica este livro?</label>
+                        <textarea name="Livro_Motivo" rows="3" placeholder="Conte brevemente o que aprendeu..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                    </div>
+                    <button type="submit" style="background: #1abc9c; color: white; border: none; padding: 10px 30px; border-radius: 4px; cursor: pointer; font-weight: bold;">Enviar Sugestão</button>
+                </form>
+            </div>
+        `;
+    }
+
+    if(pagina === "cursos"){
+        conteudo.innerHTML = `
+            <h2>🎓 DGF Educa - Portal de Cursos</h2>
+            <p>Capacitação contínua para a excelência em nossos processos financeiros.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                
+                <div class="noticia-card" style="border-left-color: #3498db; position: relative;">
+                    <span style="position: absolute; top: 10px; right: 10px; background: #ebf5fb; color: #2980b9; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold;">DISPONÍVEL</span>
+                    <h3 style="margin-top: 5px;">Excel Aplicado a Finanças</h3>
+                    <p style="font-size: 14px; color: #7f8c8d;">Aprenda a criar dashboards dinâmicos e automação de planilhas para o dia a dia da DGF.</p>
+                    <hr style="border: 0; border-top: 1px solid #eee;">
+                    <p style="font-size: 13px;"><strong>Duração:</strong> 4h | <strong>Instrutor:</strong> Equipe TI/Fin</p>
+                    <button class="btn-enviar" style="padding: 8px; font-size: 14px;" onclick="window.open('https://youtube.com', '_blank')">Assistir Aula</button>
+                </div>
+
+                <div class="noticia-card" style="border-left-color: #f1c40f; position: relative;">
+                    <span style="position: absolute; top: 10px; right: 10px; background: #fef9e7; color: #f39c12; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold;">EM BREVE</span>
+                    <h3 style="margin-top: 5px;">Compliance e Ética Pública</h3>
+                    <p style="font-size: 14px; color: #7f8c8d;">Treinamento obrigatório sobre as novas normas de conduta e auditoria interna.</p>
+                    <hr style="border: 0; border-top: 1px solid #eee;">
+                    <p style="font-size: 13px;"><strong>Previsão:</strong> Maio/2026</p>
+                    <button class="btn-enviar" style="padding: 8px; font-size: 14px; background: #bdc3c7; cursor: not-allowed;" disabled>Aguardando Lançamento</button>
+                </div>
+
+                <div class="noticia-card" style="border-left-color: #1abc9c; position: relative;">
+                    <h3 style="margin-top: 5px;">Gestão de Fluxo de Caixa</h3>
+                    <p style="font-size: 14px; color: #7f8c8d;">Entenda a fundo como funciona a conciliação bancária dentro do nosso sistema RM.</p>
+                    <hr style="border: 0; border-top: 1px solid #eee;">
+                    <p style="font-size: 13px;"><strong>Duração:</strong> 2h | <strong>Material:</strong> PDF Incluso</p>
+                    <button class="btn-enviar" style="padding: 8px; font-size: 14px;" onclick="alert('Link para o drive com o treinamento gravado')">Acessar Conteúdo</button>
+                </div>
+
+            </div>
+
+            <div class="form-container" style="max-width: 100%; margin-top: 40px; border: 1px dashed #1abc9c; background: #f0fdfa;">
+                <h3 style="color: #16a085;">📢 Quer sugerir um treinamento?</h3>
+                <p>Sentiu falta de algum curso técnico ou workshop? Nos avise!</p>
+                <form action="https://formspree.io/f/xojpooka" method="POST" style="display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap;">
+                    <div style="flex: 2; min-width: 200px;">
+                        <label style="font-size: 13px; font-weight: bold;">Tema do Curso:</label>
+                        <input type="text" name="Sugestao_Curso" placeholder="Ex: Power BI, Liderança, etc." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                    </div>
+                    <button type="submit" class="btn-enviar" style="flex: 1; width: auto; padding: 10px; min-width: 150px;">Enviar Sugestão</button>
+                </form>
+            </div>
+        `;
+    }
+
+    if(pagina === "chegou"){ conteudo.innerHTML = "<h2>Quem Chegou</h2><p>Novos servidores.</p>"; }
+    if(pagina === "usuarios"){ conteudo.innerHTML = "<h2>Usuários</h2><p>Lista de usuários.</p>"; }
+    if(pagina === "documentos"){ conteudo.innerHTML = "<h2>Documentos</h2><p>Central de documentos.</p>"; }
+    if(pagina === "ouvidoria"){ conteudo.innerHTML = "<h2>Ouvidoria</h2><p>Canal de comunicação.</p>"; }
+    if(pagina === "avaliacao"){
+        conteudo.style.maxWidth = "1200px";
+        conteudo.style.padding = "20px";
+
+        conteudo.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin:0;">📊 Avaliação de Desempenho - DGF</h2>
+                <button onclick="salvarAvaliacao()" style="padding: 10px 20px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer;">Salvar Avaliação</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">🛠️ Competências Técnicas</h3>
+                    
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Qualidade das Entregas (0-10)</label>
+                    <input type="range" min="0" max="10" step="1" style="width: 100%;">
+                    
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Conhecimento da Função</label>
+                    <select style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                        <option>Iniciante - Em desenvolvimento</option>
+                        <option>Pleno - Domina as ferramentas</option>
+                        <option>Sênior - Referência técnica</option>
+                    </select>
+
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Produtividade e Prazos</label>
+                    <textarea style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ddd;" placeholder="Comentários sobre o volume de trabalho..."></textarea>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h3 style="color: #2c3e50; border-bottom: 2px solid #1abc9c; padding-bottom: 10px;">🧠 Soft Skills</h3>
+                    
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Proatividade</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="checkbox"> Baixa <input type="checkbox"> Média <input type="checkbox"> Alta
+                    </div>
+
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Trabalho em Equipe</label>
+                    <textarea style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ddd;" placeholder="Como é o relacionamento com o time?"></textarea>
+
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Comunicação</label>
+                    <input type="text" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;" placeholder="Clareza e objetividade...">
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h3 style="color: #2c3e50; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">🚀 Plano de Crescimento</h3>
+                    
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Pontos Fortes</label>
+                    <textarea style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ddd; background: #f9f9f9;"></textarea>
+
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Onde Melhorar?</label>
+                    <textarea style="width: 100%; height: 60px; padding: 8px; border-radius: 4px; border: 1px solid #ddd; background: #fff5f5;"></textarea>
+
+                    <label style="display:block; margin: 15px 0 5px; font-weight: bold;">Meta para o próximo semestre</label>
+                    <input type="text" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                </div>
+
+            </div>
+        `;
+    }
+    if(pagina === "mapa"){
+        conteudo.style.maxWidth = "100%";
+        conteudo.style.padding = "10px";
+
+        conteudo.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 10px;">
+                <h2 style="margin:0;">🗺️ Mapa de Ocupação DGF - Layout Expandido</h2>
+                <div style="font-size: 12px; color: #7f8c8d;">Organização de setores e ajuste de espaçamento.</div>
+            </div>
+            
+            <div style="width: 100%; height: calc(100vh - 150px); background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                
+                <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; padding: 15px;">
+                    <style>
+                        .parede-externa { fill: none; stroke: #2c3e50; stroke-width: 5; }
+                        .setor-sala { fill: #ffffff; stroke: #34495e; stroke-width: 2; transition: 0.3s; cursor: pointer; }
+                        .setor-sala:hover { fill: #1abc9c; fill-opacity: 0.2; }
+                        .label-sala { font-family: 'Segoe UI', Arial; font-size: 11px; font-weight: bold; fill: #2c3e50; pointer-events: none; }
+                        .mesa-dgf { fill: #f1f2f6; stroke: #dfe4ea; stroke-width: 1.5; rx: 4; }
+                        .pc-dgf { fill: #3498db; rx: 1; }
+                        
+                        /* Estilo Botão Tesouro (Laranja) */
+                        .btn-tesouro { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
+                        .btn-tesouro:hover { fill: #e67e22; }
+                        .label-tesouro { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; fill: #ffffff; pointer-events: none; }
+
+                        /* Estilo Botão PC (Azul Escuro/Verde para combinar com o mapa) */
+                        .btn-pc { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
+                        .btn-pc:hover { fill: #3498db; }
+                        .label-pc { font-family: 'Segoe UI', Arial; font-size: 8px; font-weight: bold; fill: #ffffff; pointer-events: none; }
+                    </style>
+
+                    <rect x="5" y="5" width="890" height="605" class="parede-externa" />
+
+                    <rect x="20" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: SFPCCF')" />
+                    <text x="100" y="65" text-anchor="middle" class="label-sala">SFPCCF</text>
+
+                    <rect x="180" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: Almoxarifado')" />
+                    <text x="260" y="65" text-anchor="middle" class="label-sala">ALMOXARIFADO</text>
+
+                    <rect x="370" y="30" width="320" height="60" class="mesa-dgf" />
+                    <rect x="390" y="35" width="22" height="12" class="pc-dgf" /> <rect x="470" y="35" width="22" height="12" class="pc-dgf" /> <rect x="550" y="35" width="22" height="12" class="pc-dgf" /> <rect x="630" y="35" width="22" height="12" class="pc-dgf" />
+                    <rect x="390" y="73" width="22" height="12" class="pc-dgf" /> <rect x="470" y="73" width="22" height="12" class="pc-dgf" /> <rect x="550" y="73" width="22" height="12" class="pc-dgf" /> <rect x="630" y="73" width="22" height="12" class="pc-dgf" />
+
+                    <rect x="730" y="20" width="150" height="170" class="setor-sala" onclick="alert('Setor: GPAG')" />
+                    <text x="805" y="105" text-anchor="middle" class="label-sala">GPAG</text>
+                    <rect x="730" y="190" width="150" height="70" class="setor-sala" onclick="alert('Setor: SFES')" />
+                    <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
+                    <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
+                    <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
+                    <rect x="730" y="380" width="150" height="210" class="setor-sala" onclick="alert('Setor: GC')" />
+                    <text x="805" y="490" text-anchor="middle" class="label-sala">GC</text>
+
+                    <rect x="20" y="140" width="320" height="60" class="mesa-dgf" />
+                    <rect x="40" y="220" width="320" height="60" class="mesa-dgf" />
+                    <rect x="20" y="300" width="320" height="60" class="mesa-dgf" />
+                    <rect x="370" y="140" width="320" height="60" class="mesa-dgf" />
+                    <rect x="370" y="220" width="320" height="60" class="mesa-dgf" />
+                    <rect x="370" y="300" width="320" height="60" class="mesa-dgf" />
+
+                    <rect x="20" y="380" width="155" height="50" class="mesa-dgf" /> <rect x="185" y="380" width="155" height="50" class="mesa-dgf" /> 
+                    <rect x="370" y="380" width="155" height="50" class="mesa-dgf" /> <rect x="535" y="380" width="155" height="50" class="mesa-dgf" /> 
+
+                    <rect x="20" y="445" width="320" height="55" class="btn-pc" onclick="alert('Funcionários:\\n- Jorge (Coordenador)\\n- Paulo\\n- Maria Souza\\n- Tainá\\n- Sueli\\n- Rosicleide\\n- Ana Elizabeth\\n- Mônica')" />
+                    <text x="180" y="478" text-anchor="middle" class="label-pc">Coordenação de Prestação de Contas de Convênios</text>
+                    
+                    <rect x="370" y="445" width="320" height="55" class="btn-tesouro" onclick="alert('Funcionários:\\n- Edson\\n- Marcela\\n- Roberto\\n- Ana Carolina\\n- Murilo\\n- Lourdes (Coordenadora)\\n- Ana Kedma')" />
+                    <text x="530" y="478" text-anchor="middle" class="label-tesouro">Coordenação de Liquidação (Tesouro)</text>
+
+                    <rect x="20" y="510" width="320" height="35" class="mesa-dgf" />
+                    <rect x="20" y="555" width="320" height="35" class="mesa-dgf" />
+                    <rect x="370" y="510" width="320" height="80" class="setor-sala" onclick="alert('Setor: GCE')" />
+                    <text x="530" y="555" text-anchor="middle" class="label-sala" style="font-size:16px">GCE</text>
+                    
+                </svg>
+            </div>
+        `;
+}
+}
+</script>
+
+</body>
+</html>
