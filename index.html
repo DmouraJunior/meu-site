@@ -299,8 +299,8 @@ section {
 <div id="tela-login">
     <div class="login-box">
         <img src="imagem-dgf.png" alt="Logo DGF" class="img-login">
-        <h2 style="color:#2c3e50">Acesso Portal DGF</h2>
-        <input type="text" id="usuario" placeholder="Usuário (Edson)">
+        <h2 style="color:#2c3e50">Acesso Intranet DGF</h2>
+        <input type="text" id="usuario" placeholder="Usuário">
         <div style="position: relative;">
             <input type="password" id="senha" placeholder="Senha">
             <span class="toggle-password" style="top: 20px;" onclick="toggleVisibility('senha')">👁️</span>
@@ -312,7 +312,7 @@ section {
 
 <div id="app" style="display:none;">
     <header>
-        <h1 style="position:relative; z-index:2;">Portal - Diretoria Geral de Finanças</h1>
+        <h1 style="position:relative; z-index:2;">Intranet - Diretoria Geral de Finanças</h1>
         <button onclick="logout()" style="float:right; margin-top:-35px; background:#e74c3c; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px; position:relative; z-index:2;">Sair</button>
     </header>
 
@@ -1140,7 +1140,7 @@ if(pagina === "avaliacao"){
     `;
 }
 
-    if(pagina === "mapa"){
+  if(pagina === "mapa"){
         conteudo.style.maxWidth = "100%";
         conteudo.style.padding = "10px";
 
@@ -1161,12 +1161,10 @@ if(pagina === "avaliacao"){
                         .mesa-dgf { fill: #f1f2f6; stroke: #dfe4ea; stroke-width: 1.5; rx: 4; }
                         .pc-dgf { fill: #3498db; rx: 1; }
                         
-                        /* Estilo Botão Tesouro (Laranja) */
                         .btn-tesouro { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
                         .btn-tesouro:hover { fill: #e67e22; }
                         .label-tesouro { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; fill: #ffffff; pointer-events: none; }
 
-                        /* Estilo Botão PC (Azul Escuro/Verde para combinar com o mapa) */
                         .btn-pc { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
                         .btn-pc:hover { fill: #3498db; }
                         .label-pc { font-family: 'Segoe UI', Arial; font-size: 8px; font-weight: bold; fill: #ffffff; pointer-events: none; }
@@ -1190,18 +1188,18 @@ if(pagina === "avaliacao"){
                     <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
                     <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
                     <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
-                    <rect x="730" y="380" width="150" height="210" class="setor-sala" onclick="alert('Setor: GC')" />
-                    <text x="805" y="490" text-anchor="middle" class="label-sala">GC</text>
+                    <rect x="730" y="340" width="150" height="250" class="setor-sala" onclick="alert('Setor: GC')" /> <text x="805" y="470" text-anchor="middle" class="label-sala">GC</text>
 
                     <rect x="20" y="140" width="320" height="60" class="mesa-dgf" />
-                    <rect x="40" y="220" width="320" height="60" class="mesa-dgf" />
+                    <rect x="20" y="220" width="320" height="60" class="mesa-dgf" />
                     <rect x="20" y="300" width="320" height="60" class="mesa-dgf" />
                     <rect x="370" y="140" width="320" height="60" class="mesa-dgf" />
                     <rect x="370" y="220" width="320" height="60" class="mesa-dgf" />
                     <rect x="370" y="300" width="320" height="60" class="mesa-dgf" />
 
-                    <rect x="20" y="380" width="155" height="50" class="mesa-dgf" /> <rect x="185" y="380" width="155" height="50" class="mesa-dgf" /> 
-                    <rect x="370" y="380" width="155" height="50" class="mesa-dgf" /> <rect x="535" y="380" width="155" height="50" class="mesa-dgf" /> 
+                    <rect x="70" y="375" width="60" height="60" class="mesa-dgf" /> <rect x="230" y="375" width="60" height="60" class="mesa-dgf" /> 
+
+                    <rect x="420" y="375" width="60" height="60" class="mesa-dgf" /> <rect x="580" y="375" width="60" height="60" class="mesa-dgf" /> 
 
                     <rect x="20" y="445" width="320" height="55" class="btn-pc" onclick="alert('Funcionários:\\n- Jorge (Coordenador)\\n- Paulo\\n- Maria Souza\\n- Tainá\\n- Sueli\\n- Rosicleide\\n- Ana Elizabeth\\n- Mônica')" />
                     <text x="180" y="478" text-anchor="middle" class="label-pc">Coordenação de Prestação de Contas de Convênios</text>
