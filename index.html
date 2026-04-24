@@ -376,7 +376,7 @@ function logar() {
     const senhaSalva = localStorage.getItem('senha_Edson') || "1234";
 
     // Lista de usuários permitidos baseada na hierarquia solicitada
-    const usuariosPermitidos = ["edson", "lourdes", "rayville", "josé", "jose", "mauro"];
+    const usuariosPermitidos = ["edson", "lourdes", "rayville", "josé", "jose", "mauro", "gabriel", "jaqueline", "anapaula"];
 
     if(usuariosPermitidos.includes(user) && pass === senhaSalva) {
         document.getElementById('tela-login').style.display = 'none';
