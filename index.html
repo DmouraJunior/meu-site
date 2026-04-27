@@ -291,11 +291,9 @@ section {
 
             <button style="cursor: default; background: #2c3e50;">👥 Gestão de Pessoas</button>
             <div id="submenuGestao" class="submenu">
-                <button onclick="mostrar('avaliacao')">📊 Avaliação de Desempenho</button>
                 <button onclick="mostrar('contracheque')">💰 Contracheque</button>
                 <button onclick="mostrar('feedback')">💬 Sugestões</button>
                 <button onclick="mostrar('mapa')">🗺️ Mapa DGF</button>
-                <button onclick="mostrar('onboarding')">🧑‍💼 Onboarding</button>
                 <button onclick="mostrar('oportunidades')">🚀 Oportunidades Internas</button>
             </div>
 
@@ -310,7 +308,6 @@ section {
             <div id="submenuCorporativo" class="submenu">
                 <button onclick="mostrar('organograma')">📊 Organograma</button>
                 <button onclick="mostrar('reserva')">📅 Reserva de Sala</button>
-                <button onclick="mostrar('workflow')">⚙️ Workflow</button>
             </div>
 
             <button style="cursor: default; background: #2c3e50;">🎓 DGF Educa</button>
@@ -471,7 +468,7 @@ function mostrar(pagina){
     `;
 }
 
-    if(pagina === "noticias"){
+	if(pagina === "noticias"){
         let html = "<h2>📰 Notícias</h2>";
         listaNoticias.forEach(n => {
             html += `
