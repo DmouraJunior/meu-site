@@ -291,9 +291,11 @@ section {
 
             <button style="cursor: default; background: #2c3e50;">👥 Gestão de Pessoas</button>
             <div id="submenuGestao" class="submenu">
+                <button onclick="mostrar('avaliacao')">📊 Avaliação de Desempenho</button>
                 <button onclick="mostrar('contracheque')">💰 Contracheque</button>
                 <button onclick="mostrar('feedback')">💬 Sugestões</button>
                 <button onclick="mostrar('mapa')">🗺️ Mapa DGF</button>
+                <button onclick="mostrar('onboarding')">🧑‍💼 Onboarding</button>
                 <button onclick="mostrar('oportunidades')">🚀 Oportunidades Internas</button>
             </div>
 
@@ -306,8 +308,10 @@ section {
 
             <button style="cursor: default; background: #2c3e50;">🏢 Corporativo</button>
             <div id="submenuCorporativo" class="submenu">
-                <button onclick="mostrar('organograma')">📊 Organograma</button>
+                <button onclick="mostrar('organograma')">📊 Agente de Busca</button>
+                <button onclick="mostrar('organograma_view')">📊 Organograma</button>
                 <button onclick="mostrar('reserva')">📅 Reserva de Sala</button>
+                <button onclick="mostrar('workflow')">⚙️ Workflow</button>
             </div>
 
             <button style="cursor: default; background: #2c3e50;">🎓 DGF Educa</button>
@@ -316,8 +320,6 @@ section {
                 <button onclick="mostrar('cursos')">🎓 Cursos - indica</button>
             </div>
 
-            <button onclick="mostrar('senha_page')" style="background:#34495e; margin-top:20px; border-top:1px solid #555;">🔑 Alterar Senha</button>
-            <button onclick="logout()" style="background:#e74c3c; text-align: center;">Sair do Sistema</button>
         </nav>
 
         <div class="main-content">
@@ -468,7 +470,7 @@ function mostrar(pagina){
     `;
 }
 
-	if(pagina === "noticias"){
+if(pagina === "noticias"){
         let html = "<h2>📰 Notícias</h2>";
         listaNoticias.forEach(n => {
             html += `
@@ -481,6 +483,7 @@ function mostrar(pagina){
         });
         conteudo.innerHTML = html;
     }
+
 
     if(pagina === "eventos"){
     conteudo.innerHTML = `
@@ -575,6 +578,34 @@ function mostrar(pagina){
         </div>
     `;
 }
+
+// Garante que o código só rode após a página carregar
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Define a função mostrar globalmente para o botão encontrar
+    window.mostrar = function(pagina) {
+        const conteudo = document.getElementById('conteudo');
+
+        if (!conteudo) {
+            console.error("Erro: Elemento com ID 'conteudo' não foi encontrado.");
+            return;
+        }
+
+        // Limpa a tela
+        conteudo.innerHTML = "";
+
+        if (pagina === 'organograma_view') {
+            conteudo.innerHTML = `
+                <div style="text-align: center;">
+                    <h2 style="color: #2c3e50; margin-bottom: 20px;">Organograma DGF</h2>
+                    <div class="organograma-container" style="display: flex; justify-content: center; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 20px;">
+                        <img src="organograma.png" alt="Organograma DGF" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            `;
+        }
+    };
+});
 
    if(pagina === "contracheque"){
         conteudo.innerHTML = `
