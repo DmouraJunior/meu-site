@@ -303,7 +303,7 @@ section {
             <div id="submenuSocial" class="submenu">
                 <button onclick="mostrar('aniversariantes')">🎂 Aniversariantes</button>
                 <button onclick="mostrar('chegou')">🆕 Quem Chegou</button>
-                <button onclick="mostrar('usuarios')">👤 Usuários</button>
+                <button onclick="mostrar('Funcionários')">👤 Funcionários</button>
             </div>
 
             <button style="cursor: default; background: #2c3e50;">🏢 Corporativo</button>
@@ -375,9 +375,166 @@ function salvarNovaSenha() {
 
 /* --- SEUS DADOS E FUNÇÕES ORIGINAIS --- */
 const listaAniversariantes = [
-    { nome: "João Silva", data: "10/04", setor: "Financeiro" },
-    { nome: "Maria Oliveira", data: "12/04", setor: "RH" },
-    { nome: "Exemplo Teste", data: "10/04", setor: "DGF" }
+    { nome: "Karoline Diniz de Araújo", data: "21/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Gleiciany Pinto Santos", data: "10/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "MARCOS AURÉLIO CAVALCANTI PEREIRA JÚNIOR", data: "05/10", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "JOSÉ DO EGITO CARDOSO DE QUEIROZ", data: "23/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "João Victor do Nascimento", data: "30/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Adjair Jordão de Aragão", data: "26/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Dóris Emanuelle Tavares Chaves", data: "15/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Marise Lidivane Gomes Cavalcanti", data: "08/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Verônica Soares Dubeux", data: "16/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Pedro Henrique da Silva Lima", data: "09/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Evellin Rodrigues Sales de França", data: "16/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Moniris Carolina Miranda dos Santos Correia", data: "15/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria Eduarda Bezerra Silva", data: "13/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria Tarciana Barbosa da Silva", data: "06/12", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Vânia Regina galeno Silva leão", data: "29/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Jaqueline Rodrigues da Mota Soares", data: "22/08", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Joelson pereira Mota", data: "28/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Cícero Guedes de Lima", data: "13/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Priscila Caroline Silva", data: "05/11", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Gláucia Maria de Vasconcelos Silva", data: "01/02", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Sabrina de Vasconcelos Teixeira", data: "01/08", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "FLÁVIA MARIA ALBUQUERQUE DE MELO", data: "10/06", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Rayville Rayanne Almeida dos Santos", data: "29/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Monica Maria da Costa", data: "13/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Lívia da Silva Santos", data: "11/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Heber Rocha Linhares de Siqueira", data: "29/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Erika Milena Simões da Silva", data: "01/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Igor Murilo de Andrade Silva", data: "13/08", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Larissa Nascimento de Oliveira", data: "05/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Adiele Gracindo da Silva", data: "07/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Camila Menezes Vinhaes", data: "09/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Amanda Tadeu da Silva Araújo", data: "11/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Lílian Oliveira da Rocha", data: "07/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Paulo Ruan de Lima Andrade", data: "30/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Ana Lúcia Correia Nunes da Costa", data: "09/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "ROBERTO XISTO VILELA", data: "09/03", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Viviane Silva de Lima", data: "26/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Izabelly de Araujo Lopes", data: "14/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Leyriane Serly Xavier da Silva", data: "05/03", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "thais keila emidia de souza", data: "23/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "KATARINA RIBEIRO BARBOSA DA COSTA", data: "27/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Rosileide Correia Brasil", data: "14/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Teresa Cristina Souto Maior Pifano Ferreira", data: "03/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Jorge José de Souza Rodrigues", data: "10/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Jose Caetano Da Silva Filho", data: "03/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Medyson da Silva Lima", data: "03/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Ana Elizabeth Gomes Lessa", data: "22/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Sueli Durval da silva", data: "19/01", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Wanessa Louise Lima dos Santos", data: "04/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "ANA CAROLINE NOBRE NASCIMENTO", data: "29/08", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Ariane Isabelle de Torres Valentim", data: "28/02", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Tatiane Rosilene da Silva", data: "09/06", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Charlene Silva de santana", data: "01/09", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Carla Gomes Costa", data: "10/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Rhebeca Borges Finizola", data: "07/01", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Iasmim Santos Veloso Silva", data: "15/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Tiago Muniz de Araujo", data: "24/01", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "ALEXANDRE RIBEIRO DE MOURA MOTA", data: "02/09", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Gabriel Pedro Gomes Costa", data: "13/05", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Amanda Maria Oliveira Gomes de Souza", data: "02/12", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Rita de Kássia de Araújo Melo", data: "28/03", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Mariza Souza de Oliveira", data: "02/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Helena martins de melo", data: "15/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Jaqueline Castelo Branco Simões", data: "10/04", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Amanda Santos de Oliveira", data: "01/01", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Henrique Mateus Batista", data: "05/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria da Conceição Araújo Lopes Silva", data: "22/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Walcir Nobre da Silva", data: "13/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Valdenize Gomes Ribeiro", data: "22/02", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Irailda Evangelista da Silva Souza", data: "04/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Tainá maria moura de andrade", data: "24/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Renata Valéria da Silva", data: "21/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Cristiane Etna da Silva Souza", data: "27/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria de Lourdes Albuquerque", data: "02/08", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Gabriel Bezerra Rozendo de Souza", data: "13/01", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "CARLA ANDRESSA FARIAS DA FONSECA FERRAZ", data: "28/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Renata Pereira da Silva", data: "13/09", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Adineide Cavalcanti dos Santos", data: "03/02", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Stephany Caroline Gomes Martins", data: "05/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Edvaldo Mendes Neves", data: "24/02", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Verônica Maria de Araújo Lima", data: "19/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Anaisa Alexandrino Domingos", data: "12/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "JOSÉ DO CARMO", data: "05/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Thiago Henrique Pereira de Melo", data: "09/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Thyago de Melo Alcantara", data: "25/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Fabiana Martins de Souza lins", data: "05/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Emily Laurentino dos Santos", data: "11/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Ana Beatriz Montana R Silva", data: "04/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Rafaela Aragão Sousa Ferraz", data: "03/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Maria Lúcia de Albuquerque", data: "31/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Maria Gabriela Oliveira de Carvalho", data: "27/09", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Rafaele Guimarães Venâncio dos Santos Muniz", data: "15/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Alexandre ribeiro da silva mota", data: "07/11", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Nadja Cristina Aleixo Costa", data: "29/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria Cláudia da Silva arruda", data: "26/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Luciene Falcão de Oliveira", data: "02/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Myrna Marroquim Soares", data: "04/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Maria Wilza Arraes Alencar", data: "27/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "CRISTIANE ALMEIDA DO NASCIMENTO", data: "12/06", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Larissa Cristina Simões dos Santos", data: "22/12", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Diogo Henrique de A. Pereira", data: "31/03", superintendência: "Superintendência Financeira de Emendas Parlamentares" },
+    { nome: "Laudeci Gomes do Nascimento", data: "30/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "joselma maria maranhão de carvalho", data: "07/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "raquel duarte pessoa", data: "18/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Renan Martins da Silva", data: "06/10", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Luiz Carlos da Silva Ribeiro Junior", data: "18/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "LAÍS ALVES DOS SANTOS DE AZEVEDO", data: "05/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "TACIANA DE SÁ PACHECO", data: "14/04", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "GENILDO LOURENÇO DA HORA", data: "01/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Pettersson Steffanno Nascimento dos Santos", data: "16/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Márcio Domingues Soares", data: "08/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Daniel Bormolini Marques", data: "20/01", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Laryssa Cristina de Moura Felix", data: "02/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Wanessa dos Santos Oliveira", data: "01/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "ORLANDO FERNANDES DA SILVA", data: "03/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Milena Correia Lima", data: "29/10", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Vera Lúcia Batista de Sousa", data: "10/03", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Juliana Tavares", data: "26/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "LADJANE MARIa DA SILVA", data: "26/11", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Andreza Abreu da Silva", data: "08/02", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Mayra Maria Ferreira de Melo", data: "09/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Ana Paula Do Nascimento", data: "08/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Cleide Maria Aragão", data: "08/02", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Natália Gusmão de Carvalho", data: "31/08", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Raíza Leandro Pontes Rita", data: "19/09", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Ana Carolina cabral dos Reis Moreira", data: "05/03", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Terezinha Julia da Silva", data: "30/11", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Maria do Socorro das Chagas", data: "06/04", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Gilberto cordeiro da silva junior", data: "24/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Gabrielle de melo e silva sampaio lins", data: "05/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "MÉRCIA MARIA SILVA DE SOUZA", data: "26/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Thiago Felipe Mendes Costa", data: "25/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Éder Silva Cordeiro", data: "30/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Tatiana Isabel de Oliveira", data: "08/08", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Niedja de Oliveira Bezerra", data: "04/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Ednaldo Luiz da Silva", data: "21/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Sandra Lúcia Lopes da Silva Rodrigues", data: "04/06", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Paloma Beatriz de Oliveira Costa", data: "12/07", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "CAMILA DE ARAUJO LIMA", data: "17/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Fabio Severino Ferreira", data: "14/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Thaislan Wisles da Silva", data: "12/06", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Wilson Laurentino dos Santos", data: "20/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Júlia Tamires Horário de Lima", data: "30/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "PAULO DE TASSO DE SOUZA JUNIOR", data: "19/11", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Renata de Lima Santana", data: "02/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "BRUNO RODRIGO DOS SANTOS BARRETO", data: "01/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Anny Lívia Augusto de Melo", data: "26/02", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Risaldo Francisco da Silva Filho", data: "23/06", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Marcela Mirelle Arruda Bezerra", data: "31/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Maria das Dôres Silva", data: "21/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Ana Kedma de Gusmão Holanda", data: "23/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Mauricio Barbosa Ferreira Junior", data: "21/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Juliana Gomes Da silva", data: "18/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Nicolly Angelote Vaz Curado", data: "23/01", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Rosicleide Lima dos Santos", data: "12/05", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "Luzimary da Silva", data: "25/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Cynthya Caroline Acioli Debastiani", data: "10/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
+    { nome: "IVANDETE SEVERINA DA SILVA", data: "11/12", superintendência: "Superintendência Financeira de Prestação de Contas" },
+    { nome: "Anna Beatryz Calado de Carvalho Santos", data: "03/05", superintendência: "Superintendência Financeira de Prestação de Contas" },
+	{ nome: "Edson Elias de Moura Junior", data: "31/05", superintendência: "Superintendência Financeira de Prestação de Contas" }
 ];
 
 const listaNoticias = [
@@ -483,7 +640,21 @@ if(pagina === "noticias"){
         });
         conteudo.innerHTML = html;
     }
-
+	
+	if(pagina === "organograma_view"){
+    conteudo.innerHTML = `
+        <h2>📊 Organograma DGF</h2>
+        <p>Estrutura organizacional da nossa diretoria.</p>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+            <img src="organograma.png" alt="Organograma DGF" style="max-width: 100%; height: auto; border-radius: 4px;">
+        </div>
+        
+        <button onclick="mostrar('home')" style="margin-top: 20px; padding: 10px 20px; cursor: pointer;">
+            ⬅ Voltar para Início
+        </button>
+    `;
+}
 
     if(pagina === "eventos"){
     conteudo.innerHTML = `
@@ -630,7 +801,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let hojeHTML = "";
         let mesHTML = "";
         listaAniversariantes.forEach(pessoa => {
-            let item = `<div class="aniv-item"><strong>${pessoa.data}</strong> - ${pessoa.nome} (${pessoa.setor})</div>`;
+            let item = `<div class="aniv-item"><strong>${pessoa.data}</strong> - ${pessoa.nome} (${pessoa.superintendência})</div>`;
             if(pessoa.data === hojeString) { hojeHTML += item; } 
             else if (pessoa.data.split('/')[1] === mesAtual) { mesHTML += item; }
         });
@@ -908,49 +1079,49 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if(pagina === "biblioteca"){
-        conteudo.innerHTML = `
-            <h2>📚 Biblioteca DGF</h2>
-            <p>Indicações de leitura para o crescimento da nossa equipe.</p>
-            
-            <div class="biblioteca-grade" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
-                    <img src="https://books.google.com/books/content?id=8D99DQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Pai Rico Pai Pobre" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
-                    <h3>Pai Rico, Pai Pobre</h3>
-                    <p><small>Robert Kiyosaki</small></p>
-                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Essencial para entender ativos e passivos.</p>
-                </div>
-
-                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
-                    <img src="https://books.google.com/books/content?id=XmY_BAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Essencialismo" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
-                    <h3>Essencialismo</h3>
-                    <p><small>Greg McKeown</small></p>
-                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Para aprendermos a priorizar o que é vital.</p>
-                </div>
-
-                <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
-                    <img src="https://books.google.com/books/content?id=0XFmDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="Radical Candor" style="width:100%; height:250px; object-fit: contain; border-radius:4px; margin-bottom:10px;">
-                    <h3>Empatia Assertiva</h3>
-                    <p><small>Kim Scott</small></p>
-                    <p style="font-size:13px"><strong>Dica do Edson:</strong> Como dar feedbacks honestos e humanos.</p>
-                </div>
+    conteudo.innerHTML = `
+        <h2>📚 Biblioteca DGF</h2>
+        <p>Indicações de leitura para o crescimento da nossa equipe.</p>
+        
+        <div class="biblioteca-grade" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+            <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                <img src="livro-pai.png" alt="Pai Rico Pai Pobre" style="width:100%; height:300px; object-fit: cover; border-radius:4px; margin-bottom:10px;">
+                <h3>Pai Rico, Pai Pobre</h3>
+                <p><small>Robert Kiyosaki</small></p>
+                <p style="font-size:13px"><strong>Dica do Edson:</strong> Essencial para entender ativos e passivos.</p>
             </div>
 
-            <div class="form-container" style="max-width: 100%; margin-top: 30px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                <h3>💡 Indique um Livro</h3>
-                <form action="https://formspree.io/f/xojpooka" method="POST">
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Título do Livro:</label>
-                        <input type="text" name="Livro_Titulo" required placeholder="Ex: A Meta" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Por que você indica este livro?</label>
-                        <textarea name="Livro_Motivo" rows="3" placeholder="Conte brevemente o que aprendeu..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
-                    </div>
-                    <button type="submit" style="background: #1abc9c; color: white; border: none; padding: 10px 30px; border-radius: 4px; cursor: pointer; font-weight: bold;">Enviar Sugestão</button>
-                </form>
+            <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                <img src="livro-essencialismo.png" alt="Essencialismo" style="width:100%; height:300px; object-fit: cover; border-radius:4px; margin-bottom:10px;">
+                <h3>Essencialismo</h3>
+                <p><small>Greg McKeown</small></p>
+                <p style="font-size:13px"><strong>Dica do Edson:</strong> Para aprendermos a priorizar o que é vital.</p>
             </div>
-        `;
-    }
+
+            <div class="livro-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+                <img src="empatia.png" alt="Radical Candor" style="width:100%; height:300px; object-fit: cover; border-radius:4px; margin-bottom:10px;">
+                <h3>Empatia Assertiva</h3>
+                <p><small>Kim Scott</small></p>
+                <p style="font-size:13px"><strong>Dica do Edson:</strong> Como dar feedbacks honestos e humanos.</p>
+            </div>
+        </div>
+
+        <div class="form-container" style="max-width: 100%; margin-top: 30px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3>💡 Indique um Livro</h3>
+            <form action="https://formspree.io/f/xojpooka" method="POST">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Título do Livro:</label>
+                    <input type="text" name="Livro_Titulo" required placeholder="Ex: A Meta" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Por que você indica este livro?</label>
+                    <textarea name="Livro_Motivo" rows="3" placeholder="Conte brevemente o que aprendeu..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+                <button type="submit" style="background: #1abc9c; color: white; border: none; padding: 10px 30px; border-radius: 4px; cursor: pointer; font-weight: bold;">Enviar Sugestão</button>
+            </form>
+        </div>
+    `;
+}
 
     if(pagina === "cursos"){
         conteudo.innerHTML = `
@@ -1001,8 +1172,250 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     }
 
-    if(pagina === "chegou"){ conteudo.innerHTML = "<h2>Quem Chegou</h2><p>Novos servidores.</p>"; }
-    if(pagina === "usuarios"){ conteudo.innerHTML = "<h2>Usuários</h2><p>Lista de usuários.</p>"; }
+    if(pagina === "chegou"){
+    // Lista de novos servidores - Basta adicionar novos aqui
+    const novosServidores = [
+        { nome: "Ana Paula Moreira da Silva", cargo: "Assessor Técnico", data: "Maio/2026" },
+        { nome: "Gabriel Bezerra Rozendo", cargo: "Assessor Administrativo", data: "Abril/2026" },
+        { nome: "Iasmim Santos Veloso", cargo: "Assessor Administrativo", data: "Abril/2026" }
+    ];
+
+    conteudo.innerHTML = `
+        <div style="padding: 20px; font-family: sans-serif;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="color: #2c3e50; font-size: 28px; margin-bottom: 10px;">✨ Boas-vindas ao Time!</h2>
+                <p style="color: #7f8c8d; font-size: 16px;">Conheça os novos servidores que chegaram para somar na DGF.</p>
+                <div style="width: 60px; height: 4px; background: #1abc9c; margin: 15px auto; border-radius: 2px;"></div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; justify-items: center;">
+                ${novosServidores.map(s => `
+                    <div style="background: white; width: 100%; max-width: 300px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; border-top: 5px solid #1abc9c; text-align: center; transition: transform 0.3s ease;">
+                        
+                        <div style="position: absolute; top: 15px; right: -35px; background: #f1c40f; color: #fff; padding: 5px 40px; transform: rotate(45deg); font-size: 10px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            NOVO
+                        </div>
+
+                        <div style="width: 70px; height: 70px; background: #e8f8f5; color: #1abc9c; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; border: 2px solid #1abc9c;">
+                            ${s.nome.charAt(0)}
+                        </div>
+
+                        <h3 style="margin: 10px 0 5px 0; color: #2c3e50; font-size: 18px;">${s.nome}</h3>
+                        <p style="margin: 0; color: #1abc9c; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">${s.cargo}</p>
+                        
+                        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #f0f0f0; display: flex; justify-content: center; align-items: center; gap: 8px; color: #95a5a6; font-size: 12px;">
+                            <span>📅 Ingresso: <strong>${s.data}</strong></span>
+                        </div>
+
+                        <div style="margin-top: 15px; display: flex; justify-content: center; gap: 5px;">
+                            <span style="background: #2c3e50; color: white; padding: 4px 12px; border-radius: 12px; font-size: 10px;">#TimeDGF</span>
+                            <span style="background: #1abc9c; color: white; padding: 4px 12px; border-radius: 12px; font-size: 10px;">🚀 Sucesso</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div style="margin-top: 50px; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <p style="margin: 0; font-style: italic; font-size: 16px; opacity: 0.9;">"Nenhum de nós é tão bom quanto todos nós juntos."</p>
+                <p style="margin-top: 10px; font-weight: bold; color: #1abc9c;">Sejam muito bem-vindos!</p>
+            </div>
+        </div>
+    `;
+}
+	
+    if(pagina === "Funcionários"){
+    // Lista de dados extraída do seu texto
+    const funcionarios = [
+        { nome: "Mauro Ataíde da Silva Júnior", cargo: "Diretoria Geral de Finanças" },
+        { nome: "Adjair Jordão De Aragão", cargo: "Coordenador de Análise de Prestação de Contas - UPA" },
+        { nome: "Carla Gomes Costa", cargo: "Coordenadora de prestação de Contas" },
+        { nome: "Cicero Guedes De Lima", cargo: "Assistente de Prestação de Contas" },
+        { nome: "Juliana Gomes da Silva", cargo: "Coordenadora Contábil Financeiros dos Contratos de Gestão - UPA" },
+        { nome: "Fabio Severino Ferreira", cargo: "Coordenador de Recursos do SUS" },
+        { nome: "Flavia Maria Albuquerque De Melo", cargo: "Coordenadora de Controle Orçamentário e Empenho" },
+        { nome: "Gleiciany Pinto Santos", cargo: "Coordenadora de Liquidação do SUS" },
+        { nome: "Tatiana Isabel de Oliveira", cargo: "Coordenadora de Validação e Análise dos Contratos de Gestão" },
+        { nome: "Joselma Maria Maranhão De Carvalho", cargo: "Coordenadora de Recursos do Tesouro" },
+        { nome: "Jorge José De Souza Rodrigues", cargo: "Coordenador de Prestação de Contas de Convênios" },
+        { nome: "Karoline Diniz De Araújo", cargo: "Coordenadora do Núcleo Tributário SES" },
+        { nome: "João Victor do Nascimento", cargo: "Coordenador de Treinamento e Modelagem dos Contratos de Gestão" },
+        { nome: "Gabriel Pedro Gomes Costa", cargo: "Coordenador de Análise de Prestação de Contas - UPAE" },
+        { nome: "Pettersson Steffanno Nascimento dos Santos", cargo: "Coordenador de Análise de Prestação de Contas - UPA" },
+        { nome: "Pedro Henrique Da Silva Lima", cargo: "Coordenador de Prestação de Contas - UPAE" },
+        { nome: "Raiza Leandro Pontes Rita", cargo: "Coordenadora do Núcleo Tributário FES" },
+        { nome: "Veronica Soares Dubeux", cargo: "Coordenadora de Validação e Análise dos Contratos de Gestão" },
+        { nome: "Joelson Pereira Mota", cargo: "Gerente de Análise e Validação Financeira dos Contratos de Gestão" },
+        { nome: "Jaqueline Rodrigues Da Mota Soares", cargo: "Gerente de Controle Orçamentário e Empenho" },
+        { nome: "José Do Carmo Fernandes Da Silva", cargo: "Superintendente do Fundo Estadual de saúde" },
+        { nome: "Marcos Aurélio Cavalcanti Pereira Júnior", cargo: "Gerênte de Engenharia Clínica" },
+        { nome: "Evellin Rodrigues Sales De França", cargo: "Superintendente Financeira de Contratos de Gestão" },
+        { nome: "Rayville Rayanne Almeida Dos Santos", cargo: "Gerente de Contábil" },
+        { nome: "Vania Regina Galeno De Souza E Silva", cargo: "Gerente de Prestação de Contas" },
+        { nome: "Maria De Lourdes Albuquerque", cargo: "Coordenadora de Liquidação do Tesouro" },
+        { nome: "BRUNO RODRIGO DOS SANTOS BARRETO", cargo: "Coordenador de Emendas Parlamentares Federais" },
+        { nome: "Ednaldo Luiz Da Silva", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Sandra Lucia Lopes Da Silva Rodrigues", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Cleide Maria Aragao", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Lais Alves Dos Santos De Azevedo", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Roberto Xisto Vilela", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Murilo Carvalho Rosa", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Larissa Nascimento De Oliveira", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Thiago Felipe Mendes Costa", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Renata Pereira Da Silva", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Gabrielle De Melo E Silva Sampaio Lins", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Paulo De Tasso De Souza Junior", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Adna Belarmino De Sousa", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Lauralane Viana Dos Santos", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Luciene Falcao De Oliveira", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Luzimary Da Silva", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Maria Das Neves Costa Ferreira", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Adineide Cavalcanti Dos Santos", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Andre Luiz De Andrade", cargo: "AUXILIAR EM SAUDE" },
+        { nome: "Carlos Alberto Constancio De Lima", cargo: "AUXILIAR EM SAUDE" },
+        { nome: "Helena Cristina Reis Paes Pinto", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Irany Maria Souza Da Costa", cargo: "AUXILIAR EM SAUDE" },
+        { nome: "Marcos Augusto Duarte", cargo: "ASSISTENTE EM SAUDE" },
+        { nome: "Marcelo Alexandre Silva Correia Gaston", cargo: "ANALISTA EM SAUDE" },
+        { nome: "Adiele Gracindo da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Adrielly Estevão dos Santos", cargo: "Apoio Administrativo" },
+        { nome: "Andreza Abreu da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Agrimário José Freire Firmino", cargo: "Apoio Administrativo" },
+        { nome: "Alexandre Ribeiro da Silva Mota", cargo: "Assessor Administrativo" },
+        { nome: "Alexandre Ribeiro de Moura Mota", cargo: "Assessor Administrativo" },
+        { nome: "Amanda Tadeu da Silva Araújo", cargo: "Assessor Administrativo" },
+        { nome: "Ana Carolina Cabral dos Reis Moreira", cargo: "Assessor Administrativo" },
+        { nome: "Ana Caroline Nobre Nascimento", cargo: "Assessor Administrativo" },
+        { nome: "Ana Elizabeth Gomes Lessa", cargo: "Assessor Administrativo" },
+        { nome: "Ana Kedma de Gusmão Holanda", cargo: "Assessor Técnico" },
+        { nome: "Ana Lúcia Correia Nunes da Costa", cargo: "Assessor Técnico" },
+        { nome: "Ana Paula do Nascimento", cargo: "Assessor Administrativo" },
+        { nome: "Anny Livia Augusto de Melo", cargo: "Assessor Técnico" },
+        { nome: "Ariane Isabelle de Torres Valentim", cargo: "Assessor Técnico" },
+        { nome: "Carla Andressa Farias da Fonsêca Ferraz", cargo: "Assessor Administrativo" },
+        { nome: "Camila Menezes Vinhaes", cargo: "Assessor Administrativo" },
+        { nome: "Cristiane Almeida do Nascimento", cargo: "Assessor Técnico" },
+        { nome: "Cristiane Etna da Silva Souza", cargo: "Assessor Administrativo" },
+        { nome: "Cynthya Caroline Acioli Debastiani", cargo: "Assessor Administrativo" },
+        { nome: "Daniel Bormolini Marques", cargo: "Assessor Administrativo" },
+        { nome: "Edinaldo Leandro Wanderley", cargo: "Apoio Administrativo" },
+        { nome: "Éder Silva Cordeiro", cargo: "Assessor Administrativo" },
+        { nome: "Edson Elias de Moura Júnior", cargo: "Assessor Administrativo" },
+        { nome: "Edvaldo Mendes Neves", cargo: "Assessor Administrativo" },
+        { nome: "Paloma Beatriz de Oliveira Costa", cargo: "Assessor Administrativo" },
+        { nome: "Ana Paula Moreira da Silva", cargo: "Assessor Técnico" },
+        { nome: "Gabriel Bezerra Rozendo de Souza", cargo: "Assessor Administrativo" },
+        { nome: "Genildo Lourenço da Hora", cargo: "Assessor Administrativo" },
+        { nome: "Gilberto Cordeiro da Silva Júnior", cargo: "Assessor Administrativo" },
+        { nome: "Heber Rocha Linhares de Siqueira", cargo: "Assessor Administrativo" },
+        { nome: "Helena Martins de Melo", cargo: "Assessor Administrativo" },
+        { nome: "Hellen Beatriz Barreiros do Nascimento", cargo: "Apoio Administrativo" },
+        { nome: "Henrique Mateus Batista", cargo: "Apoio Administrativo" },
+        { nome: "Idalmi Viturino Sobrinho", cargo: "Assessor Técnico" },
+        { nome: "Igor Murilo de Andrade Silva", cargo: "Assessor Administrativo" },
+        { nome: "Irailda Evangelista da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Iasmim Santos Veloso Silva", cargo: "Assessor Administrativo" },
+        { nome: "Ivandete Severina da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Jaqueline Castelo Branco Simões", cargo: "Assessor Técnico" },
+        { nome: "Jéssica Ferreira de Freitas Lima", cargo: "Assessor Técnico" },
+        { nome: "Jonas Gonçalves do Nascimento Junior", cargo: "Assessor Administrativo" },
+        { nome: "José do Egito Cardoso de Queiroz", cargo: "Assessor Técnico" },
+        { nome: "Júlia Tamires Horácio de Lima", cargo: "Assessor Administrativo" },
+        { nome: "Juliana Tavares de Souza", cargo: "Assessor Administrativo" },
+        { nome: "Katlyn Maria do Carmo Pereira", cargo: "Apoio Administrativo" },
+        { nome: "Ladjane Maria da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Larissa Cristina Simões dos Santos", cargo: "Assessor Administrativo" },
+        { nome: "Laryssa Cristina de Moura Felix", cargo: "Assessor Administrativo" },
+        { nome: "Laudeci Gomes do Nascimento", cargo: "Assessor Administrativo" },
+        { nome: "Leyriane Serly Xavier da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Lívia da Silva Santos", cargo: "Assessor Administrativo" },
+        { nome: "Márcio Domingues Soares", cargo: "Assessor Administrativo" },
+        { nome: "Marcela Mirelle Arruda Bezerra", cargo: "Assessor Administrativo" },
+        { nome: "Maria da Conceição Araújo Lopes Silva", cargo: "Assessor Administrativo" },
+        { nome: "Maria das Dores Silva", cargo: "Assessor Administrativo" },
+        { nome: "Maria do Socorro das Chagas", cargo: "Assessor Técnico" },
+        { nome: "Maria Eduarda Bezerra Silva", cargo: "Assessor Técnico" },
+        { nome: "Maria Lúcia de Albuquerque", cargo: "Assessor Administrativo" },
+        { nome: "Maria Wilza Arraes Alencar", cargo: "Assessor Técnico" },
+        { nome: "Mariza Souza de Oliveira", cargo: "Assessor Administrativo" },
+        { nome: "Maurício Barbosa Ferreira Júnior", cargo: "Assessor Administrativo" },
+        { nome: "Mayra Maria Ferreira de Melo", cargo: "Assessor Técnico" },
+        { nome: "Medyson da Silva Lima", cargo: "Assessor Administrativo" },
+        { nome: "Mônica Maria da Costa", cargo: "Assessor Administrativo" },
+        { nome: "Myrna Marroquim Soares", cargo: "Assessor Administrativo" },
+        { nome: "Nadja Cristina Aleixo Costa", cargo: "Assessor Administrativo" },
+        { nome: "Natália Gusmão de Carvalho", cargo: "Assessor Administrativo" },
+        { nome: "Niedja de Oliveira Bezerra", cargo: "Assessor Administrativo" },
+        { nome: "Orlandina Fernandes Da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Orlando Fernandes da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Paulo Ruan de Lima Andrade", cargo: "Assessor Administrativo" },
+        { nome: "Rafaela Aragão Sousa Ferraz", cargo: "Assessor Administrativo" },
+        { nome: "Renata Valéria da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Renan Martins da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Risaldo Francisco da Silva", cargo: "Assessor Técnico" },
+        { nome: "Rosicleide Lima dos Santos", cargo: "Assessor Administrativo" },
+        { nome: "Rosileide Correia Brasil", cargo: "Assessor Administrativo" },
+        { nome: "Silvanir Lopes da Silva", cargo: "Apoio Administrativo" },
+        { nome: "Sueli Durval da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Stephany Caroline Gomes Martins", cargo: "Assessor Administrativo" },
+        { nome: "Taciana de Sá Pacheco", cargo: "Assessor Administrativo" },
+        { nome: "Tainá Maria Moura de Andrade", cargo: "Assessor Administrativo" },
+        { nome: "Ana Beatriz Montana Rodrigues Silva", cargo: "Assessor Administrativo" },
+        { nome: "Teresa Cristina Souto Maior Pifano Ferreira", cargo: "Assessor Técnico" },
+        { nome: "Terezinha Júlia da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Thaislan Wisles da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Valdenize Gomes Ribeiro", cargo: "Assessor Administrativo" },
+        { nome: "Vera Lúcia Batista de Sousa", cargo: "Assessor Administrativo" },
+        { nome: "Verônica Maria de Araújo Lima", cargo: "Assessor Administrativo" },
+        { nome: "Viviane Silva de Lima", cargo: "Assessor Administrativo" },
+        { nome: "Walcir Nobre da Silva", cargo: "Assessor Administrativo" },
+        { nome: "Wanessa dos Santos Oliveira", cargo: "Assessor Administrativo" },
+        { nome: "Wanessa Louise Lima dos Santos", cargo: "Assessor Administrativo" }
+    ];
+
+    conteudo.innerHTML = `
+        <div style="padding: 20px;">
+            <h2 style="color: #2c3e50; margin-bottom: 10px;">👥 Nossa Equipe</h2>
+            <p style="color: #7f8c8d; margin-bottom: 20px;">Conheça os profissionais que compõem o nosso setor.</p>
+            
+            <input type="text" id="buscaFuncionario" placeholder="🔍 Buscar por nome ou cargo..." 
+                style="width: 100%; padding: 12px; margin-bottom: 25px; border: 1px solid #ddd; border-radius: 25px; font-size: 16px; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+
+            <div id="listaCards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                ${funcionarios.map(f => {
+                    const inicial = f.nome.charAt(0);
+                    return `
+                        <div class="card-user" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); display: flex; align-items: center; gap: 15px; border-left: 5px solid #1abc9c; transition: transform 0.2s;">
+                            <div style="background: #ecf0f1; color: #1abc9c; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; flex-shrink: 0;">
+                                ${inicial}
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; color: #2c3e50; font-size: 15px;">${f.nome}</h4>
+                                <p style="margin: 5px 0 0 0; color: #1abc9c; font-size: 12px; font-weight: bold; text-transform: uppercase;">${f.cargo}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+
+    // Lógica da Busca (Filtragem dinâmica)
+    document.getElementById('buscaFuncionario').addEventListener('input', function(e) {
+        const termo = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.card-user');
+        
+        cards.forEach(card => {
+            const nome = card.querySelector('h4').innerText.toLowerCase();
+            const cargo = card.querySelector('p').innerText.toLowerCase();
+            if (nome.includes(termo) || cargo.includes(termo)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
+
     if(pagina === "documentos"){ conteudo.innerHTML = "<h2>Documentos</h2><p>Central de documentos.</p>"; }
     if(pagina === "ouvidoria"){ conteudo.innerHTML = "<h2>Ouvidoria</h2><p>Canal de comunicação.</p>"; }
 	
