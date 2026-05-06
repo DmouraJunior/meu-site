@@ -628,18 +628,32 @@ function mostrar(pagina){
 }
 
 if(pagina === "noticias"){
-        let html = "<h2>📰 Notícias</h2>";
-        listaNoticias.forEach(n => {
-            html += `
-                <div class="noticia-card">
-                    <small style="color:#7f8c8d;">📅 ${n.data}</small>
-                    <h3 style="margin: 10px 0;">${n.titulo}</h3>
-                    <p>${n.texto}</p>
-                </div>
-            `;
-        });
-        conteudo.innerHTML = html;
-    }
+    let html = "<h2>📰 Notícias</h2>";
+
+    // Inserindo o Guia de Ajuda como a primeira notícia (no topo)
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    html += `
+        <div class="noticia-card">
+            <small style="color:#7f8c8d;">📅 ${hoje}</small>
+            <h3 style="margin: 10px 0;">📌 Guia de Ajuda</h3>
+            <div style="text-align: center;">
+                <img src="ajuda.png" alt="Ajuda" style="width: 400px; max-width: 100%; border-radius: 8px; margin-top: 10px;">
+            </div>
+        </div>
+    `;
+
+    listaNoticias.forEach((n, i) => {
+        html += `
+            <div class="noticia-card">
+                <small style="color:#7f8c8d;">📅 ${n.data}</small>
+                <h3 style="margin: 10px 0;">${n.titulo}</h3>
+                <p>${n.texto}</p>
+            </div>
+        `;
+    });
+    
+    conteudo.innerHTML = html;
+}
 	
 	if(pagina === "organograma_view"){
     conteudo.innerHTML = `
@@ -788,7 +802,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </a>
             <a href="https://nps.pe.gov.br/PORTALV2/#/" target="_blank" class="card-contracheque" style="width: 400px; padding: 20px; background: #34495e; color: white; border: none; height: auto;">
                 <img src="logo.png" alt="Portal PE" style="width: 100%; height: auto; max-height: 250px; object-fit: contain; display: block; margin: 0 auto;">
-                <br><strong style="font-size: 22px; display: block; margin-top: 15px;">Servidores da Casa e Comissionados</strong>
+                <br><strong style="font-size: 22px; display: block; margin-top: 15px;">Servidores e Comissionados</strong>
             </a>
         </div>
         `;
@@ -1123,7 +1137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
 }
 
-   if(pagina === "cursos"){
+    if(pagina === "cursos"){
         conteudo.innerHTML = `
             <h2>🎓 DGF Educa - Portal de Cursos</h2>
             <p>Capacitação contínua para a excelência em nossos processos financeiros.</p>
@@ -1517,81 +1531,155 @@ if(pagina === "avaliacao"){
     `;
 }
 
-  if(pagina === "mapa"){
-        conteudo.style.maxWidth = "100%";
-        conteudo.style.padding = "10px";
+if (pagina === "mapa") {
+    conteudo.style.maxWidth = "100%";
+    conteudo.style.padding = "10px";
 
+    // Função para abrir os detalhes da sala GCE
+    window.abrirGCE = () => {
         conteudo.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 10px;">
-                <h2 style="margin:0;">🗺️ Mapa de Ocupação DGF - Layout Expandido</h2>
-                <div style="font-size: 12px; color: #7f8c8d;">Organização de setores e ajuste de espaçamento.</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GCE</h2>
+                <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
             </div>
             
-            <div style="width: 100%; height: calc(100vh - 150px); background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; display: flex; justify-content: center; align-items: center;">
-                
-                <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; padding: 15px;">
-                    <style>
-                        .parede-externa { fill: none; stroke: #2c3e50; stroke-width: 5; }
-                        .setor-sala { fill: #ffffff; stroke: #34495e; stroke-width: 2; transition: 0.3s; cursor: pointer; }
-                        .setor-sala:hover { fill: #1abc9c; fill-opacity: 0.2; }
-                        .label-sala { font-family: 'Segoe UI', Arial; font-size: 11px; font-weight: bold; fill: #2c3e50; pointer-events: none; }
-                        .mesa-dgf { fill: #f1f2f6; stroke: #dfe4ea; stroke-width: 1.5; rx: 4; }
-                        .pc-dgf { fill: #3498db; rx: 1; }
-                        
-                        .btn-tesouro { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
-                        .btn-tesouro:hover { fill: #e67e22; }
-                        .label-tesouro { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; fill: #ffffff; pointer-events: none; }
-
-                        .btn-pc { fill: #2980b9; stroke: #1c5980; stroke-width: 2; cursor: pointer; rx: 4; transition: 0.3s; }
-                        .btn-pc:hover { fill: #3498db; }
-                        .label-pc { font-family: 'Segoe UI', Arial; font-size: 8px; font-weight: bold; fill: #ffffff; pointer-events: none; }
-                    </style>
-
-                    <rect x="5" y="5" width="890" height="605" class="parede-externa" />
-
-                    <rect x="20" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: SFPCCF')" />
-                    <text x="100" y="65" text-anchor="middle" class="label-sala">SFPCCF</text>
-
-                    <rect x="180" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: Almoxarifado')" />
-                    <text x="260" y="65" text-anchor="middle" class="label-sala">ALMOXARIFADO</text>
-
-                    <rect x="370" y="30" width="320" height="60" class="mesa-dgf" />
-                    <rect x="390" y="35" width="22" height="12" class="pc-dgf" /> <rect x="470" y="35" width="22" height="12" class="pc-dgf" /> <rect x="550" y="35" width="22" height="12" class="pc-dgf" /> <rect x="630" y="35" width="22" height="12" class="pc-dgf" />
-                    <rect x="390" y="73" width="22" height="12" class="pc-dgf" /> <rect x="470" y="73" width="22" height="12" class="pc-dgf" /> <rect x="550" y="73" width="22" height="12" class="pc-dgf" /> <rect x="630" y="73" width="22" height="12" class="pc-dgf" />
-
-                    <rect x="730" y="20" width="150" height="170" class="setor-sala" onclick="alert('Setor: GPAG')" />
-                    <text x="805" y="105" text-anchor="middle" class="label-sala">GPAG</text>
-                    <rect x="730" y="190" width="150" height="70" class="setor-sala" onclick="alert('Setor: SFES')" />
-                    <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
-                    <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
-                    <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
-                    <rect x="730" y="340" width="150" height="250" class="setor-sala" onclick="alert('Setor: GC')" /> <text x="805" y="470" text-anchor="middle" class="label-sala">GC</text>
-
-                    <rect x="20" y="140" width="320" height="60" class="mesa-dgf" />
-                    <rect x="20" y="220" width="320" height="60" class="mesa-dgf" />
-                    <rect x="20" y="300" width="320" height="60" class="mesa-dgf" />
-                    <rect x="370" y="140" width="320" height="60" class="mesa-dgf" />
-                    <rect x="370" y="220" width="320" height="60" class="mesa-dgf" />
-                    <rect x="370" y="300" width="320" height="60" class="mesa-dgf" />
-
-                    <rect x="70" y="375" width="60" height="60" class="mesa-dgf" /> <rect x="230" y="375" width="60" height="60" class="mesa-dgf" /> 
-
-                    <rect x="420" y="375" width="60" height="60" class="mesa-dgf" /> <rect x="580" y="375" width="60" height="60" class="mesa-dgf" /> 
-
-                    <rect x="20" y="445" width="320" height="55" class="btn-pc" onclick="alert('Funcionários:\\n- Jorge (Coordenador)\\n- Paulo\\n- Maria Souza\\n- Tainá\\n- Sueli\\n- Rosicleide\\n- Ana Elizabeth\\n- Mônica')" />
-                    <text x="180" y="478" text-anchor="middle" class="label-pc">Coordenação de Prestação de Contas de Convênios</text>
+            <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
+                <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+                    <rect x="50" y="50" width="700" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
                     
-                    <rect x="370" y="445" width="320" height="55" class="btn-tesouro" onclick="alert('Funcionários:\\n- Edson\\n- Marcela\\n- Roberto\\n- Ana Carolina\\n- Murilo\\n- Lourdes (Coordenadora)\\n- Ana Kedma')" />
-                    <text x="530" y="478" text-anchor="middle" class="label-tesouro">Coordenação de Liquidação (Tesouro)</text>
+                    <rect x="65" y="50" width="60" height="10" fill="#e67e22" />
+                    <text x="135" y="65" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
 
-                    <rect x="20" y="510" width="320" height="35" class="mesa-dgf" />
-                    <rect x="20" y="555" width="320" height="35" class="mesa-dgf" />
-                    <rect x="370" y="510" width="320" height="80" class="setor-sala" onclick="alert('Setor: GCE')" />
-                    <text x="530" y="555" text-anchor="middle" class="label-sala" style="font-size:16px">GCE</text>
-                    
+                    <rect x="80" y="160" width="70" height="150" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="70" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="70" y="260" width="10" height="30" fill="#3498db" rx="2" />
+                    <rect x="150" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="150" y="260" width="10" height="30" fill="#3498db" rx="2" />
+                    <text x="115" y="235" text-anchor="middle" transform="rotate(-90 115,235)" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 1</text>
+
+                    <rect x="250" y="80" width="100" height="60" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="285" y="70" width="30" height="10" fill="#3498db" rx="2" />
+                    <text x="300" y="115" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 3</text>
+
+                    <rect x="260" y="160" width="80" height="230" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="250" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect x="340" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    <text x="300" y="275" text-anchor="middle" transform="rotate(-90 300,275)" style="font-family: Arial; font-size: 14px; fill: #2c3e50; font-weight: bold;">mesa 2</text>
+
+                    <rect x="550" y="160" width="120" height="100" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="660" y="195" width="10" height="30" fill="#3498db" rx="2" />
+                    <text x="610" y="215" text-anchor="middle" style="font-family: Arial; font-size: 11px; fill: #7f8c8d; font-weight: bold;">Mesa Individual</text>
+
+                    <text x="400" y="45" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GCE</text>
                 </svg>
             </div>
         `;
+    };
+
+    conteudo.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #1abc9c; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">🗺️ Mapa de Ocupação DGF - Layout Profissional</h2>
+            <div style="font-size: 12px; color: #7f8c8d; font-weight: bold;">Unidade: DGF 2026</div>
+        </div>
+        
+        <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
+            
+            <svg viewBox="0 0 900 680" preserveAspectRatio="xMidYMid meet" style="width: 98%; height: 98%; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));">
+                <defs>
+                    <linearGradient id="gradMesa" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#f1f2f6;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <style>
+                    .parede-externa { fill: #ffffff; stroke: #2c3e50; stroke-width: 5; rx: 10; }
+                    .setor-sala { fill: #ffffff; stroke: #bdc3c7; stroke-width: 2; transition: 0.3s; cursor: pointer; rx: 5; }
+                    .setor-sala:hover { fill: #e8f8f5; stroke: #1abc9c; }
+                    .label-sala { font-family: 'Segoe UI', Arial; font-size: 11px; font-weight: bold; fill: #34495e; pointer-events: none; text-transform: uppercase; }
+                    .mesa-dgf { fill: url(#gradMesa); stroke: #dcdde1; stroke-width: 1.5; rx: 8; }
+                    .pc-dgf { fill: #3498db; fill-opacity: 0.8; rx: 2; }
+                    .btn-tesouro { fill: #1abc9c; stroke: #16a085; stroke-width: 2; cursor: pointer; rx: 8; transition: 0.3s; }
+                    .btn-pc { fill: #1abc9c; stroke: #16a085; stroke-width: 2; cursor: pointer; rx: 8; transition: 0.3s; }
+                    .label-tesouro, .label-pc { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; fill: #ffffff; pointer-events: none; }
+                </style>
+
+                <rect x="5" y="5" width="890" height="660" class="parede-externa" />
+
+                <rect x="20" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: SFPCCF')" />
+                <text x="100" y="65" text-anchor="middle" class="label-sala">SFPCCF</text>
+                <rect x="180" y="20" width="160" height="80" class="setor-sala" onclick="alert('Setor: Almoxarifado')" />
+                <text x="260" y="65" text-anchor="middle" class="label-sala">ALMOXARIFADO</text>
+
+                <rect x="370" y="30" width="320" height="60" class="mesa-dgf" />
+                <rect x="385" y="35" width="22" height="12" class="pc-dgf" /> <rect x="460" y="35" width="22" height="12" class="pc-dgf" /> <rect x="535" y="35" width="22" height="12" class="pc-dgf" /> <rect x="610" y="35" width="22" height="12" class="pc-dgf" />
+                <rect x="385" y="73" width="22" height="12" class="pc-dgf" /> <rect x="460" y="73" width="22" height="12" class="pc-dgf" /> <rect x="535" y="73" width="22" height="12" class="pc-dgf" /> <rect x="610" y="73" width="22" height="12" class="pc-dgf" />
+
+                <rect x="730" y="20" width="150" height="170" class="setor-sala" onclick="alert('Setor: GPAG')" />
+                <text x="805" y="105" text-anchor="middle" class="label-sala">GPAG</text>
+                <rect x="730" y="190" width="150" height="70" class="setor-sala" onclick="alert('Setor: SFES')" />
+                <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
+                <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
+                <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
+                <rect x="730" y="340" width="150" height="310" class="setor-sala" onclick="alert('Setor: GC')" /> 
+                <text x="805" y="500" text-anchor="middle" class="label-sala">GC</text>
+
+                <rect x="20" y="140" width="320" height="60" class="mesa-dgf" />
+                <rect x="35" y="145" width="22" height="12" class="pc-dgf" /> <rect x="110" y="145" width="22" height="12" class="pc-dgf" /> <rect x="185" y="145" width="22" height="12" class="pc-dgf" /> <rect x="260" y="145" width="22" height="12" class="pc-dgf" />
+                <rect x="35" y="183" width="22" height="12" class="pc-dgf" /> <rect x="110" y="183" width="22" height="12" class="pc-dgf" /> <rect x="185" y="183" width="22" height="12" class="pc-dgf" /> <rect x="260" y="183" width="22" height="12" class="pc-dgf" />
+
+                <rect x="20" y="220" width="320" height="60" class="mesa-dgf" />
+                <rect x="35" y="225" width="22" height="12" class="pc-dgf" /> <rect x="110" y="225" width="22" height="12" class="pc-dgf" /> <rect x="185" y="225" width="22" height="12" class="pc-dgf" /> <rect x="260" y="225" width="22" height="12" class="pc-dgf" />
+                <rect x="35" y="263" width="22" height="12" class="pc-dgf" /> <rect x="110" y="263" width="22" height="12" class="pc-dgf" /> <rect x="185" y="263" width="22" height="12" class="pc-dgf" /> <rect x="260" y="263" width="22" height="12" class="pc-dgf" />
+
+                <rect x="20" y="300" width="320" height="60" class="mesa-dgf" />
+                <rect x="35" y="305" width="22" height="12" class="pc-dgf" /> <rect x="110" y="305" width="22" height="12" class="pc-dgf" /> <rect x="185" y="305" width="22" height="12" class="pc-dgf" /> <rect x="260" y="305" width="22" height="12" class="pc-dgf" />
+                <rect x="35" y="343" width="22" height="12" class="pc-dgf" /> <rect x="110" y="343" width="22" height="12" class="pc-dgf" /> <rect x="185" y="343" width="22" height="12" class="pc-dgf" /> <rect x="260" y="343" width="22" height="12" class="pc-dgf" />
+
+                <rect x="370" y="140" width="320" height="60" class="mesa-dgf" />
+                <rect x="385" y="145" width="22" height="12" class="pc-dgf" /> <rect x="460" y="145" width="22" height="12" class="pc-dgf" /> <rect x="535" y="145" width="22" height="12" class="pc-dgf" /> <rect x="610" y="145" width="22" height="12" class="pc-dgf" />
+                <rect x="385" y="183" width="22" height="12" class="pc-dgf" /> <rect x="460" y="183" width="22" height="12" class="pc-dgf" /> <rect x="535" y="183" width="22" height="12" class="pc-dgf" /> <rect x="610" y="183" width="22" height="12" class="pc-dgf" />
+
+                <rect x="370" y="220" width="320" height="60" class="mesa-dgf" />
+                <rect x="385" y="225" width="22" height="12" class="pc-dgf" /> <rect x="460" y="225" width="22" height="12" class="pc-dgf" /> <rect x="535" y="225" width="22" height="12" class="pc-dgf" /> <rect x="610" y="225" width="22" height="12" class="pc-dgf" />
+                <rect x="385" y="263" width="22" height="12" class="pc-dgf" /> <rect x="460" y="263" width="22" height="12" class="pc-dgf" /> <rect x="535" y="263" width="22" height="12" class="pc-dgf" /> <rect x="610" y="263" width="22" height="12" class="pc-dgf" />
+
+                <rect x="370" y="300" width="320" height="60" class="mesa-dgf" />
+                <rect x="385" y="305" width="22" height="12" class="pc-dgf" /> <rect x="460" y="305" width="22" height="12" class="pc-dgf" /> <rect x="535" y="305" width="22" height="12" class="pc-dgf" /> <rect x="610" y="305" width="22" height="12" class="pc-dgf" />
+                <rect x="385" y="343" width="22" height="12" class="pc-dgf" /> <rect x="460" y="343" width="22" height="12" class="pc-dgf" /> <rect x="535" y="343" width="22" height="12" class="pc-dgf" /> <rect x="610" y="343" width="22" height="12" class="pc-dgf" />
+
+                <rect x="70" y="375" width="60" height="110" class="mesa-dgf" /> 
+                <rect x="75" y="385" width="10" height="22" class="pc-dgf" /> <rect x="75" y="419" width="10" height="22" class="pc-dgf" /> <rect x="75" y="453" width="10" height="22" class="pc-dgf" />
+                <rect x="115" y="385" width="10" height="22" class="pc-dgf" /> <rect x="115" y="419" width="10" height="22" class="pc-dgf" /> <rect x="115" y="453" width="10" height="22" class="pc-dgf" />
+
+                <rect x="230" y="375" width="60" height="110" class="mesa-dgf" /> 
+                <rect x="235" y="385" width="10" height="22" class="pc-dgf" /> <rect x="235" y="419" width="10" height="22" class="pc-dgf" /> <rect x="235" y="453" width="10" height="22" class="pc-dgf" />
+                <rect x="275" y="385" width="10" height="22" class="pc-dgf" /> <rect x="275" y="419" width="10" height="22" class="pc-dgf" /> <rect x="275" y="453" width="10" height="22" class="pc-dgf" />
+
+                <rect x="420" y="375" width="60" height="110" class="mesa-dgf" /> 
+                <rect x="425" y="385" width="10" height="22" class="pc-dgf" /> <rect x="425" y="419" width="10" height="22" class="pc-dgf" /> <rect x="425" y="453" width="10" height="22" class="pc-dgf" />
+                <rect x="465" y="385" width="10" height="22" class="pc-dgf" /> <rect x="465" y="419" width="10" height="22" class="pc-dgf" /> <rect x="465" y="453" width="10" height="22" class="pc-dgf" />
+
+                <rect x="580" y="375" width="60" height="110" class="mesa-dgf" /> 
+                <rect x="585" y="385" width="10" height="22" class="pc-dgf" /> <rect x="585" y="419" width="10" height="22" class="pc-dgf" /> <rect x="585" y="453" width="10" height="22" class="pc-dgf" />
+                <rect x="625" y="385" width="10" height="22" class="pc-dgf" /> <rect x="625" y="419" width="10" height="22" class="pc-dgf" /> <rect x="625" y="453" width="10" height="22" class="pc-dgf" />
+
+                <rect x="20" y="505" width="320" height="45" class="btn-pc" onclick="alert('Coordenação de Convênios')" />
+                <text x="180" y="533" text-anchor="middle" class="label-pc">Coordenação de Prestação de Contas</text>
+                <rect x="370" y="505" width="320" height="45" class="btn-tesouro" onclick="alert('Coordenação de Liquidação')" />
+                <text x="530" y="533" text-anchor="middle" class="label-tesouro">Coordenação de Liquidação (Tesouro)</text>
+
+                <rect x="20" y="560" width="320" height="40" class="mesa-dgf" />
+                <rect x="35" y="565" width="22" height="10" class="pc-dgf" /> <rect x="110" y="565" width="22" height="10" class="pc-dgf" /> <rect x="185" y="565" width="22" height="10" class="pc-dgf" /> <rect x="260" y="565" width="22" height="10" class="pc-dgf" />
+                <rect x="35" y="585" width="22" height="10" class="pc-dgf" /> <rect x="110" y="585" width="22" height="10" class="pc-dgf" /> <rect x="185" y="585" width="22" height="10" class="pc-dgf" /> <rect x="260" y="585" width="22" height="10" class="pc-dgf" />
+
+                <rect x="20" y="610" width="320" height="40" class="mesa-dgf" />
+                <rect x="35" y="615" width="22" height="10" class="pc-dgf" /> <rect x="110" y="615" width="22" height="10" class="pc-dgf" /> <rect x="185" y="615" width="22" height="10" class="pc-dgf" /> <rect x="260" y="615" width="22" height="10" class="pc-dgf" />
+                <rect x="35" y="635" width="22" height="10" class="pc-dgf" /> <rect x="110" y="635" width="22" height="10" class="pc-dgf" /> <rect x="185" y="635" width="22" height="10" class="pc-dgf" /> <rect x="260" y="635" width="22" height="10" class="pc-dgf" />
+                
+                <rect x="370" y="560" width="320" height="90" class="setor-sala" onclick="abrirGCE()" />
+                <text x="530" y="610" text-anchor="middle" class="label-sala" style="font-size:16px; fill:#2c3e50; pointer-events: none;">GCE (Ver Detalhes)</text>
+            </svg>
+        </div>
+    `;
 }
 }
 </script>
