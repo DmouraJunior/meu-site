@@ -677,92 +677,25 @@ if(pagina === "noticias"){
     conteudo.innerHTML = `
         <h2 style="margin-bottom: 25px;">📅 Agenda de Eventos</h2>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-            
-            <div style="background: white; border-radius: 10px; border-top: 5px solid #e74c3c; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #e74c3c; font-weight: bold; font-size: 11px; text-transform: uppercase;">VAGAS LIMITADAS</span>
-                    <span style="color: #95a5a6; font-size: 12px;">ID: #001</span>
-                </div>
-                <h3 style="margin: 15px 0 10px; color: #2c3e50;">Workshop: Excel Avançado</h3>
-                <p style="color: #7f8c8d; font-size: 14px;">Focado em automação financeira e dashboards. Preencha o formulário abaixo para garantir sua vaga.</p>
-                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #2c3e50; font-weight: bold;">R$ 50,00</div>
-            </div>
-            
-            <div style="background: white; border-radius: 10px; border-top: 5px solid #3498db; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #3498db; font-weight: bold; font-size: 11px; text-transform: uppercase;">GOVERNANÇA</span>
-                    <span style="color: #95a5a6; font-size: 12px;">ID: #003</span>
-                </div>
-                <h3 style="margin: 15px 0 10px; color: #2c3e50;">E-Fisco: Gestão de Teto de Gastos de GD3</h3>
-                <p style="color: #7f8c8d; font-size: 14px;">Capacitar os servidores para melhor planejamento, orçamentação, controle e gestão da despesa pública. Preencha o formulário abaixo para garantir sua vaga.</p>
-                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #27ae60; font-weight: bold;">GRATUITO</div>
-            </div>
-
-            <div style="background: white; border-radius: 10px; border-top: 5px solid #27ae60; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #27ae60; font-weight: bold; font-size: 11px; text-transform: uppercase;">ENTRADA LIVRE</span>
-                    <span style="color: #95a5a6; font-size: 12px;">ID: #002</span>
-                </div>
-                <h3 style="margin: 15px 0 10px; color: #2c3e50;">Palestra: Bem-Estar</h3>
-                <p style="color: #7f8c8d; font-size: 14px;">Saúde mental e produtividade no ambiente de trabalho.</p>
-                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; color: #27ae60; font-weight: bold;">GRATUITO</div>
-            </div>
-
-            <div style="background: #f8f9fa; border-radius: 10px; border-top: 5px solid #95a5a6; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; opacity: 0.7;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: #7f8c8d; font-weight: bold; font-size: 11px; text-transform: uppercase;">ENCERRADO</span>
-                    <span style="color: #95a5a6; font-size: 12px;">ID: #000</span>
-                </div>
-                <h3 style="margin: 15px 0 10px; color: #7f8c8d;">Power BI Desktop</h3>
-                <p style="color: #95a5a6; font-size: 14px;">Inscrições finalizadas. Novas turmas em breve.</p>
-                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #ddd; color: #e74c3c; font-weight: bold;">LOTADO</div>
-            </div>
-
-        </div>
-
-        <div style="text-align: center; margin-bottom: 30px;">
-            <button onclick="let f = document.getElementById('form-recolhivel'); f.style.display = (f.style.display === 'none' ? 'block' : 'none'); window.location.hash='form-recolhivel'" 
-                style="background: #2c3e50; color: white; border: none; padding: 15px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;">
-                📝 Clique aqui para se Inscrever
-            </button>
-        </div>
-
-        <div id="form-recolhivel" class="form-container" style="display: none; border: 1px solid #ddd; padding: 25px; border-radius: 10px; background: #fefefe;">
-            <h3 style="margin-top:0;">Formulário de Inscrição de Eventos</h3>
-            <form action="https://formspree.io/f/xojpooka" method="POST">
-                
-                <div class="form-group">
-                    <label>Escolha o Evento/Curso:</label>
-                    <select name="Evento_Selecionado" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-                        <option value="" disabled selected>Selecione uma opção...</option>
-                        <option value="Workshop Excel Avançado">Workshop: Excel Avançado (R$ 50,00)</option>
-                        <option value="E-Fisco Gestão de Teto">E-Fisco: Gestão de Teto de Gastos (Gratuito)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Nome Completo:</label>
-                    <input type="text" name="Nome" required placeholder="Digite seu nome">
-                </div>
-                <div class="form-group">
-                    <label>CPF:</label>
-                    <input type="text" name="CPF" required placeholder="000.000.000-00">
-                </div>
-                <div class="form-group">
-                    <label>Matrícula:</label>
-                    <input type="text" name="Matricula" required placeholder="Digite sua matrícula">
-                </div>
-                <div class="form-group">
-                    <label>Setor:</label>
-                    <input type="text" name="Setor" required placeholder="Digite seu setor">
-                </div>
-                <div class="form-group">
-                    <label>Diretoria:</label>
-                    <input type="text" name="Diretoria" required placeholder="Digite sua diretoria">
-                </div>
-                <button type="submit" class="btn-enviar" style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Finalizar Inscrição</button>
-            </form>
+        <div style="
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 300px; 
+            background: white; 
+            border-radius: 12px; 
+            border: 1px dashed #ccc; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 20px;
+        ">
+            <div style="font-size: 50px; margin-bottom: 15px;">🗓️</div>
+            <h3 style="color: #2c3e50; margin-bottom: 10px;">Nenhum evento disponível</h3>
+            <p style="color: #7f8c8d; max-width: 400px; line-height: 1.6;">
+                No momento, não existem eventos ou cursos com inscrições abertas. 
+                Fique atento às nossas atualizações e acompanhe o canal de notícias para futuras oportunidades.
+            </p>
         </div>
     `;
 }
