@@ -291,11 +291,9 @@ section {
 
             <button style="cursor: default; background: #2c3e50;">👥 Gestão de Pessoas</button>
             <div id="submenuGestao" class="submenu">
-                <button onclick="mostrar('avaliacao')">📊 Avaliação de Desempenho</button>
                 <button onclick="mostrar('contracheque')">💰 Contracheque</button>
                 <button onclick="mostrar('feedback')">💬 Sugestões</button>
                 <button onclick="mostrar('mapa')">🗺️ Mapa DGF</button>
-                <button onclick="mostrar('onboarding')">🧑‍💼 Onboarding</button>
                 <button onclick="mostrar('oportunidades')">🚀 Oportunidades Internas</button>
             </div>
 
@@ -311,7 +309,6 @@ section {
                 <button onclick="mostrar('organograma')">📊 Agente de Busca</button>
                 <button onclick="mostrar('organograma_view')">📊 Organograma</button>
                 <button onclick="mostrar('reserva')">📅 Reserva de Sala</button>
-                <button onclick="mostrar('workflow')">⚙️ Workflow</button>
             </div>
 
             <button style="cursor: default; background: #2c3e50;">🎓 DGF Educa</button>
@@ -324,7 +321,7 @@ section {
 
         <div class="main-content">
             <header>
-                <h1>Intranet - Diretoria Geral de Finanças</h1>
+                <h1> 🎗️ Intranet - Diretoria Geral de Finanças</h1>
             </header>
             <section id="conteudo">
             </section>
@@ -457,6 +454,7 @@ const listaAniversariantes = [
     { nome: "Edvaldo Mendes Neves", data: "24/02", superintendência: "Superintendência Financeira de Prestação de Contas" },
     { nome: "Verônica Maria de Araújo Lima", data: "19/03", superintendência: "Superintendência Financeira de Prestação de Contas" },
     { nome: "Anaisa Alexandrino Domingos", data: "12/10", superintendência: "Superintendência Financeira de Prestação de Contas" },
+	{ nome: "Romero Cavalcanti Barreto da Silva", data: "11/09", cargo: "Assistente administrativo"},
     { nome: "JOSÉ DO CARMO", data: "05/07", superintendência: "Superintendência do Fundo Estadual de Saúde" },
     { nome: "Thiago Henrique Pereira de Melo", data: "09/01", superintendência: "Superintendência do Fundo Estadual de Saúde" },
     { nome: "Thyago de Melo Alcantara", data: "25/04", superintendência: "Superintendência Financeira de Prestação de Contas" },
@@ -585,7 +583,12 @@ function mostrar(pagina){
         padding: 15px;
         background: #f4f7f6;
         border-radius: 8px;
+        border-top: 10px solid #ffcc00;
     ">
+        
+        <div style="background: #ffcc00; color: #333; padding: 12px; border-radius: 8px; text-align: center; font-family: sans-serif; font-weight: bold; font-size: 14px;">
+            🎗️ MAIO AMARELO: No trânsito, escolha a vida!
+        </div>
         
         <div style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
             <div style="background: #34495e; color: white; padding: 10px; text-align: center; font-weight: bold; font-family: sans-serif;">📅 AGENDA DGF</div>
@@ -1173,7 +1176,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if(pagina === "chegou"){
     // Lista de novos servidores - Basta adicionar novos aqui
     const novosServidores = [
-    { nome: "Romero Cavalcanti", cargo: "Assessor Administrativo", data: "Maio/2026" }
+        { nome: "Romero Cavalcanti Barreto da Silva", cargo: "Assessor administrativo", data: "Maio/2026" }
     ];
 
     conteudo.innerHTML = `
@@ -1348,6 +1351,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { nome: "Renata Valéria da Silva", cargo: "Assessor Administrativo" },
         { nome: "Renan Martins da Silva", cargo: "Assessor Administrativo" },
         { nome: "Risaldo Francisco da Silva", cargo: "Assessor Técnico" },
+		{ nome: "Romero Cavalcanti Barreto da Silva", cargo: "Assistente administrativo"},
         { nome: "Rosicleide Lima dos Santos", cargo: "Assessor Administrativo" },
         { nome: "Rosileide Correia Brasil", cargo: "Assessor Administrativo" },
         { nome: "Silvanir Lopes da Silva", cargo: "Apoio Administrativo" },
@@ -1543,35 +1547,78 @@ if (pagina === "mapa") {
             
             <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
                 <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
-                    <rect x="50" y="50" width="700" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
+                    <rect x="50" y="50" width="350" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
                     
-                    <rect x="65" y="50" width="60" height="10" fill="#e67e22" />
-                    <text x="135" y="65" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
+                    <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
+                    <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
 
                     <rect x="80" y="160" width="70" height="150" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
                     <rect x="70" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="70" y="260" width="10" height="30" fill="#3498db" rx="2" />
                     <rect x="150" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="150" y="260" width="10" height="30" fill="#3498db" rx="2" />
                     <text x="115" y="235" text-anchor="middle" transform="rotate(-90 115,235)" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 1</text>
 
-                    <rect x="250" y="80" width="100" height="60" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="285" y="70" width="30" height="10" fill="#3498db" rx="2" />
-                    <text x="300" y="115" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 3</text>
+                    <rect x="240" y="80" width="110" height="60" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="350" y="95" width="10" height="30" fill="#3498db" rx="2" />
+                    <text x="295" y="115" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 3</text>
 
                     <rect x="260" y="160" width="80" height="230" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
                     <rect x="250" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="330" width="10" height="35" fill="#3498db" rx="2" />
                     <rect x="340" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="330" width="10" height="35" fill="#3498db" rx="2" />
                     <text x="300" y="275" text-anchor="middle" transform="rotate(-90 300,275)" style="font-family: Arial; font-size: 14px; fill: #2c3e50; font-weight: bold;">mesa 2</text>
 
-                    <rect x="550" y="160" width="120" height="100" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="660" y="195" width="10" height="30" fill="#3498db" rx="2" />
-                    <text x="610" y="215" text-anchor="middle" style="font-family: Arial; font-size: 11px; fill: #7f8c8d; font-weight: bold;">Mesa Individual</text>
-
-                    <text x="400" y="45" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GCE</text>
+                    <text x="225" y="45" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GCE</text>
                 </svg>
             </div>
         `;
     };
 
+// Função para abrir os detalhes da sala GC
+window.abrirGC = () => {
+    conteudo.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GC</h2>
+            <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
+        </div>
+        
+        <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
+            <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+                <rect x="50" y="50" width="280" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
+                
+                <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
+                <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
+
+                <rect x="55" y="130" width="40" height="240" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
+                <rect x="95" y="145" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="205" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="265" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="325" width="8" height="30" fill="#3498db" rx="1" />
+
+                <rect x="55" y="380" width="45" height="40" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
+                <rect x="62" y="422" width="30" height="8" fill="#3498db" rx="1" />
+
+                <rect x="140" y="140" width="80" height="250" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                <rect x="132" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="132" y="215" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="132" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="132" y="335" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="220" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="220" y="215" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="220" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="220" y="335" width="8" height="30" fill="#3498db" rx="1" />
+
+                <rect x="290" y="52" width="40" height="396" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
+                <rect x="282" y="80" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="140" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="200" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="260" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="320" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="380" width="8" height="35" fill="#3498db" rx="1" />
+
+                <text x="190" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GC</text>
+            </svg>
+        </div>
+    `;
+};
     conteudo.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #1abc9c; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
             <h2 style="margin:0; font-size: 18px; color: #2c3e50;">🗺️ Mapa de Ocupação DGF - Layout Profissional</h2>
@@ -1617,7 +1664,8 @@ if (pagina === "mapa") {
                 <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
                 <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
                 <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
-                <rect x="730" y="340" width="150" height="310" class="setor-sala" onclick="alert('Setor: GC')" /> 
+                
+                <rect x="730" y="340" width="150" height="310" class="setor-sala" onclick="abrirGC()" /> 
                 <text x="805" y="500" text-anchor="middle" class="label-sala">GC</text>
 
                 <rect x="20" y="140" width="320" height="60" class="mesa-dgf" />
