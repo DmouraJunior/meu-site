@@ -1473,52 +1473,116 @@ if (pagina === "mapa") {
     };
 
     // Função para abrir os detalhes da sala GC
-    window.abrirGC = () => {
-        conteudo.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GC</h2>
-                <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
-            </div>
-            
-            <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
-                <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+window.abrirGC = () => {
+    // Função interna para destacar a cadeira ao clicar no nome da lista
+    window.focarFuncionario = (id) => {
+        // Reseta todas as cadeiras para azul
+        document.querySelectorAll('.cadeira-gc').forEach(c => c.setAttribute('fill', '#3498db'));
+        document.querySelectorAll('.encosto-gc').forEach(e => e.setAttribute('fill', '#2980b9'));
+        
+        // Destaca a selecionada em verde
+        const assento = document.getElementById(`assento-${id}`);
+        const encosto = document.getElementById(`encosto-${id}`);
+        if(assento && encosto) {
+            assento.setAttribute('fill', '#2ecc71');
+            encosto.setAttribute('fill', '#27ae60');
+        }
+    };
+
+    conteudo.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GC</h2>
+            <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
+        </div>
+        
+        <div style="display: flex; width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; border: 1px solid #dcdde1; overflow: hidden;">
+            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
                     <rect x="50" y="50" width="280" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
                     
                     <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
                     <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
 
                     <rect x="55" y="130" width="40" height="240" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
-                    <rect x="95" y="145" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="95" y="205" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="95" y="265" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="95" y="325" width="8" height="30" fill="#3498db" rx="1" />
+                    ${renderCadeira(95, 145, 'viviane', 'Viviane Silva de Lima')}
+                    ${renderCadeira(95, 205, 'ivandete', 'Ivandete Severina da Silva')}
+                    ${renderCadeira(95, 265, 'larissa-c', 'Larissa Cristina Simões dos Santos')}
+                    ${renderCadeira(95, 325, 'karoline', 'karoline Diniz De Araújo')}
 
                     <rect x="55" y="380" width="45" height="40" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
-                    <rect x="62" y="422" width="30" height="8" fill="#3498db" rx="1" />
+                    ${renderCadeira(62, 422, 'rayville', 'Rayville Rayanne Almeida Dos Santos', true)}
 
                     <rect x="140" y="140" width="80" height="250" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="132" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
-                    <rect x="132" y="215" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="132" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
-                    <rect x="132" y="335" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="220" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
-                    <rect x="220" y="215" width="8" height="30" fill="#3498db" rx="1" />
-                    <rect x="220" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
-                    <rect x="220" y="335" width="8" height="30" fill="#3498db" rx="1" />
+                    ${renderCadeira(132, 155, 'heber', 'Heber Rocha Linhares de Siqueira')}
+                    ${renderCadeira(132, 215, 'anna', 'Anna Beatriz Calado')}
+                    ${renderCadeira(132, 275, 'camila', 'Camila')}
+                    ${renderCadeira(132, 335, 'bruno', 'BRUNO RODRIGO DOS SANTOS BARRETO')}
+
+                    ${renderCadeira(220, 155, 'idalmi', 'Idalmi Viturino Sobrinho', false, true)}
+                    ${renderCadeira(220, 275, 'natalia', 'Natália Gusmão de Carvalho', false, true)}
+                    ${renderCadeira(220, 335, 'renata', 'Renata Pereira Da Silva', false, true)}
 
                     <rect x="290" y="52" width="40" height="396" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
-                    <rect x="282" y="80" width="8" height="35" fill="#3498db" rx="1" />
-                    <rect x="282" y="140" width="8" height="35" fill="#3498db" rx="1" />
-                    <rect x="282" y="200" width="8" height="35" fill="#3498db" rx="1" />
-                    <rect x="282" y="260" width="8" height="35" fill="#3498db" rx="1" />
-                    <rect x="282" y="320" width="8" height="35" fill="#3498db" rx="1" />
-                    <rect x="282" y="380" width="8" height="35" fill="#3498db" rx="1" />
+                    ${renderCadeira(282, 80, 'raiza', 'Raiza Leandro Pontes Rita', false, true)}
+                    ${renderCadeira(282, 140, 'larissa-n', 'Larissa Nascimento De Oliveira', false, true)}
+                    ${renderCadeira(282, 200, 'wanessa', 'Wanessa Louise Lima dos Santos', false, true)}
+                    ${renderCadeira(282, 260, 'ana-n', 'Ana Caroline Nobre Nascimento', false, true)}
+                    ${renderCadeira(282, 320, 'iasmim', 'Iasmim Santos Veloso Silva', false, true)}
+                    ${renderCadeira(282, 380, 'jessica', 'Jéssica Ferreira de Freitas Lima', false, true)}
 
                     <text x="190" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GC</text>
                 </svg>
             </div>
-        `;
-    };
+
+            <div style="width: 250px; background: white; border-left: 1px solid #dcdde1; padding: 15px; overflow-y: auto;">
+                <h3 style="margin-top:0; font-size: 16px; color: #2c3e50; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px;">Funcionários</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    ${renderItemLista('Raiza Leandro Pontes Rita', 'raiza')}
+                    ${renderItemLista('Larissa Nascimento De Oliveira', 'larissa-n')}
+                    ${renderItemLista('Wanessa Louise Lima dos Santos', 'wanessa')}
+                    ${renderItemLista('Ana Caroline Nobre Nascimento', 'ana-n')}
+                    ${renderItemLista('Iasmim Santos Veloso Silva', 'iasmim')}
+                    ${renderItemLista('Jéssica Ferreira de Freitas Lima', 'jessica')}
+                    ${renderItemLista('Heber Rocha Linhares de Siqueira', 'heber')}
+                    ${renderItemLista('Anna Beatriz Calado', 'anna')}
+                    ${renderItemLista('Camila', 'camila')}
+                    ${renderItemLista('BRUNO RODRIGO DOS SANTOS BARRETO', 'bruno')}
+                    ${renderItemLista('Idalmi Viturino Sobrinho', 'idalmi')}
+                    ${renderItemLista('Natália Gusmão de Carvalho', 'natalia')}
+                    ${renderItemLista('Renata Pereira Da Silva', 'renata')}
+                    ${renderItemLista('Viviane Silva de Lima', 'viviane')}
+                    ${renderItemLista('Ivandete Severina da Silva', 'ivandete')}
+                    ${renderItemLista('Larissa Cristina Simões dos Santos', 'larissa-c')}
+                    ${renderItemLista('karoline Diniz De Araújo', 'karoline')}
+                    ${renderItemLista('Rayville Rayanne Almeida Dos Santos', 'rayville')}
+                </ul>
+            </div>
+        </div>
+    `;
+};
+
+// Funções Auxiliares para construção do HTML/SVG
+function renderCadeira(x, y, id, nome, horizontal = false, inverter = false) {
+    const width = horizontal ? 30 : 8;
+    const height = horizontal ? 8 : 30;
+    const encostoOffset = inverter ? (horizontal ? 0 : 5) : (horizontal ? -3 : -3);
+    
+    return `
+        <g onclick="alert('${nome}')" style="cursor:pointer">
+            <title>${nome}</title>
+            <rect id="assento-${id}" class="cadeira-gc" x="${x}" y="${y}" width="${width}" height="${height}" fill="#3498db" rx="1" />
+            <rect id="encosto-${id}" class="encosto-gc" x="${horizontal ? x : x + encostoOffset}" y="${horizontal ? y + height + encostoOffset : y}" width="${horizontal ? width : 3}" height="${horizontal ? 3 : height}" fill="#2980b9" rx="1" />
+        </g>
+    `;
+}
+
+function renderItemLista(nome, id) {
+    return `
+        <li onclick="focarFuncionario('${id}')" style="padding: 8px; margin-bottom: 5px; background: #f8f9fa; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s; border: 1px solid transparent;" onmouseover="this.style.background='#e9ecef'" onmouseout="this.style.background='#f8f9fa'">
+            ${nome}
+        </li>
+    `;
+}
 
    // Nova Função: abrir os detalhes da sala DGF
 window.abrirDGF = () => {
