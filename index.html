@@ -536,8 +536,8 @@ const listaAniversariantes = [
 ];
 
 const listaNoticias = [
-    { data: "15/05/2026", titulo: "Nova Intranet DGF", texto: "Seja bem-vindo ao nosso novo portal de comunicação interna. Aqui você encontra tudo o que precisa." },
-    { data: "15/05/2026", titulo: "Comunicado Geral", texto: "Lembramos a todos sobre o preenchimento das metas semanais no Trello." }
+    { data: "10/04/2026", titulo: "Nova Intranet DGF", texto: "Seja bem-vindo ao nosso novo portal de comunicação interna. Aqui você encontra tudo o que precisa." },
+    { data: "09/04/2026", titulo: "Comunicado Geral", texto: "Lembramos a todos sobre o preenchimento das metas semanais no Trello." }
 ];
 
 function toggleMenu(){
@@ -736,97 +736,29 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     }
     if(pagina === "aniversariantes"){
-    const agora = new Date();
-    const diaAtual = agora.getDate().toString().padStart(2, '0');
-    const mesAtual = (agora.getMonth() + 1).toString().padStart(2, '0');
-    const hojeString = `${diaAtual}/${mesAtual}`;
-    
-    window.renderizarMes = (mesSelecionado) => {
-        const nomesMeses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        const listaFiltrada = listaAniversariantes
-            .filter(p => p.data.split('/')[1] === mesSelecionado)
-            .sort((a, b) => parseInt(a.data.split('/')[0]) - parseInt(b.data.split('/')[0]));
-
-        let htmlFinal = "";
-        listaFiltrada.forEach(pessoa => {
-            const ehHoje = pessoa.data === hojeString;
-            htmlFinal += `
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: ${ehHoje ? '#e8f4fd' : 'white'}; border-radius: 8px; border-left: 4px solid ${ehHoje ? '#3498db' : '#bdc3c7'}; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                    <div>
-                        <div style="font-weight: bold; color: #2c3e50; font-size: 14px;">${pessoa.nome.toUpperCase()}</div>
-                        <div style="font-size: 11px; color: #7f8c8d; text-transform: uppercase;">${pessoa.superintendência || 'DGF'}</div>
-                    </div>
-                    <div style="font-weight: bold; color: #34495e; background: #f1f2f6; padding: 5px 10px; border-radius: 20px; font-size: 12px; min-width: 50px; text-align: center;">
-                        ${pessoa.data}
-                    </div>
-                </div>`;
+        const agora = new Date();
+        const diaAtual = agora.getDate().toString().padStart(2, '0');
+        const mesAtual = (agora.getMonth() + 1).toString().padStart(2, '0');
+        const hojeString = `${diaAtual}/${mesAtual}`;
+        let hojeHTML = "";
+        let mesHTML = "";
+        listaAniversariantes.forEach(pessoa => {
+            let item = `<div class="aniv-item"><strong>${pessoa.data}</strong> - ${pessoa.nome} (${pessoa.superintendência})</div>`;
+            if(pessoa.data === hojeString) { hojeHTML += item; } 
+            else if (pessoa.data.split('/')[1] === mesAtual) { mesHTML += item; }
         });
-        document.getElementById('container-lista-mes').innerHTML = `
-            <h3 style="color: #34495e; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-top: 20px;">📅 Aniversariantes de ${nomesMeses[parseInt(mesSelecionado) - 1]}</h3>
-            ${htmlFinal || "<p style='color: #95a5a6; font-style: italic;'>Nenhum aniversariante encontrado.</p>"}
+        conteudo.innerHTML = `
+            <h2>🎂 Aniversariantes</h2>
+            <div class="aniv-secao hoje">
+                <h3>🎈 Aniversariantes de Hoje (${hojeString})</h3>
+                ${hojeHTML || "<p>Ninguém faz aniversário hoje.</p>"}
+            </div>
+            <div class="aniv-secao">
+                <h3>📅 Outros Aniversariantes do Mês</h3>
+                ${mesHTML || "<p>Nenhum outro aniversariante este mês.</p>"}
+            </div>
         `;
-    };
-
-    const aniversariantesHoje = listaAniversariantes.filter(p => p.data === hojeString);
-
-    let hojeHTML = "";
-    aniversariantesHoje.forEach(pessoa => {
-        hojeHTML += `
-            <div style="background: white; width: 100%; max-width: 300px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; border-top: 5px solid #3498db; text-align: center; margin-bottom: 10px;">
-                
-                <div style="position: absolute; top: 15px; right: -35px; background: #f1c40f; color: #fff; padding: 5px 40px; transform: rotate(45deg); font-size: 10px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                    HOJE
-                </div>
-
-                <div style="width: 70px; height: 70px; background: #e8f4fd; color: #3498db; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; border: 2px solid #3498db; position: relative;">
-                    ${pessoa.nome.charAt(0)}
-                    <span style="position: absolute; bottom: -5px; right: -5px; font-size: 20px;">🎂</span>
-                </div>
-
-                <h3 style="margin: 10px 0 5px 0; color: #2c3e50; font-size: 18px;">${pessoa.nome.toUpperCase()}</h3>
-                <p style="margin: 0; color: #3498db; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">${pessoa.superintendência || 'DGF'}</p>
-                
-                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #f0f0f0; display: flex; justify-content: center; align-items: center; gap: 8px; color: #95a5a6; font-size: 12px;">
-                    <span>✨ Data Especial: <strong>${pessoa.data}</strong></span>
-                </div>
-
-                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 5px;">
-                    <span style="background: #2c3e50; color: white; padding: 4px 12px; border-radius: 12px; font-size: 10px;">#Parabéns</span>
-                    <span style="background: #2ecc71; color: white; padding: 4px 12px; border-radius: 12px; font-size: 10px;">🎈 Celebração</span>
-                </div>
-            </div>`;
-    });
-
-    conteudo.innerHTML = `
-        <h2 style="color: #2c3e50; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 30px;">🎂</span> Aniversariantes
-        </h2>
-
-        <div style="margin-bottom: 30px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; justify-items: start;">
-                ${hojeHTML || `
-                    <div style="grid-column: 1 / -1; width: 100%; padding: 20px; background: white; border-radius: 12px; border: 1px dashed #bdc3c7; text-align: center; color: #95a5a6;">
-                        Ninguém faz aniversário hoje, ${hojeString}.
-                    </div>
-                `}
-            </div>
-        </div>
-
-        <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-            <p style="margin: 0 0 10px 0; font-size: 12px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px;">Consultar por mês:</p>
-            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px;">
-                ${["01","02","03","04","05","06","07","08","09","10","11","12"].map((m, i) => `
-                    <button onclick="renderizarMes('${m}')" style="padding: 8px; border: 1px solid #f1f2f6; background: ${m === mesAtual ? '#3498db' : '#f8f9fa'}; color: ${m === mesAtual ? 'white' : '#34495e'}; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#3498db'; this.style.color='white'" onmouseout="${m === mesAtual ? '' : "this.style.background='#f8f9fa'; this.style.color='#34495e'"}">
-                        ${["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"][i]}
-                    </button>
-                `).join('')}
-            </div>
-            <div id="container-lista-mes"></div>
-        </div>
-    `;
-
-    renderizarMes(mesAtual);
-}
+    }
 
     if(pagina === "organograma"){
         conteudo.innerHTML = `
@@ -1144,7 +1076,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if(pagina === "chegou"){
     // Lista de novos servidores - Basta adicionar novos aqui
     const novosServidores = [
-        { nome: "Romero Cavalcanti Barreto da Silva", cargo: "Assessor administrativo", data: "Maio/2026" }
+        { nome: "Romero Cavalcanti Barreto da Silva", cargo: "Coordenação de Liquidação (Tesouro)", data: "Maio/2026" }
     ];
 
     conteudo.innerHTML = `
@@ -1340,7 +1272,6 @@ document.addEventListener("DOMContentLoaded", function() {
         { nome: "Wanessa Louise Lima dos Santos", cargo: "Assessor Administrativo" }
     ];
 
-		
     conteudo.innerHTML = `
         <div style="padding: 20px;">
             <h2 style="color: #2c3e50; margin-bottom: 10px;">👥 Nossa Equipe</h2>
@@ -1506,257 +1437,88 @@ if (pagina === "mapa") {
     conteudo.style.maxWidth = "100%";
     conteudo.style.padding = "10px";
 
-    // Função para abrir os detalhes da sala GC
-window.abrirGC = () => {
-    // Função interna para destacar a cadeira ao clicar no nome da lista
-    window.focarFuncionario = (id) => {
-        // Reseta todas as cadeiras para azul
-        document.querySelectorAll('.cadeira-gc').forEach(c => c.setAttribute('fill', '#3498db'));
-        document.querySelectorAll('.encosto-gc').forEach(e => e.setAttribute('fill', '#2980b9'));
-        
-        // Destaca a selecionada em verde
-        const assento = document.getElementById(`assento-${id}`);
-        const encosto = document.getElementById(`encosto-${id}`);
-        if(assento && encosto) {
-            assento.setAttribute('fill', '#2ecc71');
-            encosto.setAttribute('fill', '#27ae60');
-        }
+    // Função para abrir os detalhes da sala GCE
+    window.abrirGCE = () => {
+        conteudo.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GCE</h2>
+                <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
+            </div>
+            
+            <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
+                <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+                    <rect x="50" y="50" width="350" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
+                    
+                    <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
+                    <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
+
+                    <rect x="80" y="160" width="70" height="150" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="70" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="70" y="260" width="10" height="30" fill="#3498db" rx="2" />
+                    <rect x="150" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="150" y="260" width="10" height="30" fill="#3498db" rx="2" />
+                    <text x="115" y="235" text-anchor="middle" transform="rotate(-90 115,235)" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 1</text>
+
+                    <rect x="240" y="80" width="110" height="60" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="350" y="95" width="10" height="30" fill="#3498db" rx="2" />
+                    <text x="295" y="115" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 3</text>
+
+                    <rect x="260" y="160" width="80" height="230" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                    <rect x="250" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect x="340" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    <text x="300" y="275" text-anchor="middle" transform="rotate(-90 300,275)" style="font-family: Arial; font-size: 14px; fill: #2c3e50; font-weight: bold;">mesa 2</text>
+
+                    <text x="225" y="45" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GCE</text>
+                </svg>
+            </div>
+        `;
     };
 
+// Função para abrir os detalhes da sala GC
+window.abrirGC = () => {
     conteudo.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
             <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GC</h2>
             <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
         </div>
         
-        <div style="display: flex; width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; border: 1px solid #dcdde1; overflow: hidden;">
-            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
-                <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
-                    <rect x="50" y="50" width="280" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
-                    
-                    <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
-                    <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
-
-                    <rect x="55" y="130" width="40" height="240" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
-                    ${renderCadeira(95, 145, 'viviane', 'Viviane Silva de Lima')}
-                    ${renderCadeira(95, 205, 'ivandete', 'Ivandete Severina da Silva')}
-                    ${renderCadeira(95, 265, 'larissa-c', 'Larissa Cristina Simões dos Santos')}
-                    ${renderCadeira(95, 325, 'karoline', 'karoline Diniz De Araújo')}
-
-                    <rect x="55" y="380" width="45" height="40" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
-                    ${renderCadeira(62, 422, 'rayville', 'Rayville Rayanne Almeida Dos Santos', true)}
-
-                    <rect x="140" y="140" width="80" height="250" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    ${renderCadeira(132, 155, 'heber', 'Heber Rocha Linhares de Siqueira')}
-                    ${renderCadeira(132, 215, 'anna', 'Anna Beatriz Calado')}
-                    ${renderCadeira(132, 275, 'camila', 'Camila')}
-                    ${renderCadeira(132, 335, 'bruno', 'BRUNO RODRIGO DOS SANTOS BARRETO')}
-
-                    ${renderCadeira(220, 155, 'idalmi', 'Idalmi Viturino Sobrinho', false, true)}
-                    ${renderCadeira(220, 215, 'lais', 'Lais Alves Dos Santos De Azevedo', false, true)}
-                    ${renderCadeira(220, 275, 'natalia', 'Natália Gusmão de Carvalho', false, true)}
-                    ${renderCadeira(220, 335, 'renata', 'Renata Pereira Da Silva', false, true)}
-
-                    <rect x="290" y="52" width="40" height="396" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
-                    ${renderCadeira(282, 80, 'raiza', 'Raiza Leandro Pontes Rita', false, true)}
-                    ${renderCadeira(282, 140, 'larissa-n', 'Larissa Nascimento De Oliveira', false, true)}
-                    ${renderCadeira(282, 200, 'wanessa', 'Wanessa Louise Lima dos Santos', false, true)}
-                    ${renderCadeira(282, 260, 'ana-n', 'Ana Caroline Nobre Nascimento', false, true)}
-                    ${renderCadeira(282, 320, 'iasmim', 'Iasmim Santos Veloso Silva', false, true)}
-                    ${renderCadeira(282, 380, 'jessica', 'Jéssica Ferreira de Freitas Lima', false, true)}
-
-                    <text x="190" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GC</text>
-                </svg>
-            </div>
-
-            <div style="width: 280px; background: white; border-left: 1px solid #dcdde1; padding: 20px; overflow-y: auto;">
-                <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #7f8c8d; letter-spacing: 1px; text-transform: uppercase;">Equipe GC</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    ${renderItemLista('Raiza Leandro Pontes Rita', 'raiza')}
-                    ${renderItemLista('Larissa Nascimento De Oliveira', 'larissa-n')}
-                    ${renderItemLista('Wanessa Louise Lima dos Santos', 'wanessa')}
-                    ${renderItemLista('Ana Caroline Nobre Nascimento', 'ana-n')}
-                    ${renderItemLista('Iasmim Santos Veloso Silva', 'iasmim')}
-                    ${renderItemLista('Jéssica Ferreira de Freitas Lima', 'jessica')}
-                    ${renderItemLista('Heber Rocha Linhares de Siqueira', 'heber')}
-                    ${renderItemLista('Anna Beatriz Calado', 'anna')}
-                    ${renderItemLista('Lais Alves Dos Santos De Azevedo', 'lais')}
-                    ${renderItemLista('Camila', 'camila')}
-                    ${renderItemLista('BRUNO RODRIGO DOS SANTOS BARRETO', 'bruno')}
-                    ${renderItemLista('Idalmi Viturino Sobrinho', 'idalmi')}
-                    ${renderItemLista('Natália Gusmão de Carvalho', 'natalia')}
-                    ${renderItemLista('Renata Pereira Da Silva', 'renata')}
-                    ${renderItemLista('Viviane Silva de Lima', 'viviane')}
-                    ${renderItemLista('Ivandete Severina da Silva', 'ivandete')}
-                    ${renderItemLista('Larissa Cristina Simões dos Santos', 'larissa-c')}
-                    ${renderItemLista('karoline Diniz De Araújo', 'karoline')}
-                    ${renderItemLista('Rayville Rayanne Almeida Dos Santos', 'rayville')}
-                </div>
-            </div>
-        </div>
-    `;
-};
-
-// Funções Auxiliares (Padrão Corporativo)
-function renderCadeira(x, y, id, nome, horizontal = false, inverter = false) {
-    const width = horizontal ? 30 : 8;
-    const height = horizontal ? 8 : 30;
-    const encostoOffset = inverter ? (horizontal ? 0 : 5) : (horizontal ? -3 : -3);
-    
-    return `
-        <g onclick="alert('${nome}')" style="cursor:pointer">
-            <title>${nome}</title>
-            <rect id="assento-${id}" class="cadeira-gc" x="${x}" y="${y}" width="${width}" height="${height}" fill="#3498db" rx="1" />
-            <rect id="encosto-${id}" class="encosto-gc" x="${horizontal ? x : x + encostoOffset}" y="${horizontal ? y + height + encostoOffset : y}" width="${horizontal ? width : 3}" height="${horizontal ? 3 : height}" fill="#2980b9" rx="1" />
-        </g>
-    `;
-}
-
-function renderItemLista(nome, id) {
-    return `
-        <div onclick="focarFuncionario('${id}')" 
-             style="padding: 12px; background: #fdfdfd; border: 1px solid #f1f2f6; border-radius: 8px; cursor: pointer; transition: all 0.3s;" 
-             onmouseover="this.style.borderLeft='4px solid #3498db'; this.style.background='#f0f7ff'" 
-             onmouseout="this.style.borderLeft='1px solid #f1f2f6'; this.style.background='#fdfdfd'">
-            <div style="font-weight: bold; color: #2c3e50; font-size: 11px; text-transform: uppercase;">${nome}</div>
-            <div style="color: #3498db; font-size: 10px; margin-top: 4px; font-weight: bold;">Setor GC</div>
-        </div>
-    `;
-}
-
-  // Nova Função: abrir os detalhes da sala DGF
-window.abrirDGF = () => {
-    // Função para destacar a cadeira do Diretor
-    window.focarDiretorDGF = () => {
-        const assento = document.getElementById('assento-mauro');
-        const encosto = document.getElementById('encosto-mauro');
-        
-        // Alterna para verde
-        if (assento && encosto) {
-            assento.setAttribute('fill', '#2ecc71');
-            encosto.setAttribute('fill', '#27ae60');
-        }
-        
-        // Alerta corporativo
-        alert('Diretor Geral de Finanças: Mauro Ataíde da Silva Júnior');
-    };
-
-    conteudo.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #e74c3c; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala DGF</h2>
-            <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
-        </div>
-        
-        <div style="display: flex; width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; border: 1px solid #dcdde1; overflow: hidden;">
-            
-            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
-                <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
-                    <rect x="50" y="50" width="400" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
-                    
-                    <g transform="translate(10, 50) rotate(180, 115, 250)">
-                        <polyline points="55,190 115,190 115,260 175,260 175,310 55,310 55,190" 
-                            fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
-                        
-                        <g onclick="focarDiretorDGF()" style="cursor: pointer;">
-                            <title>Diretor Geral de Finanças</title>
-                            <rect id="assento-mauro" x="120" y="220" width="35" height="25" fill="#3498db" rx="2" />
-                            <rect id="encosto-mauro" x="120" y="215" width="35" height="6" fill="#2980b9" rx="1" />
-                        </g>
-                    </g>
-
-                    <rect x="125" y="50" width="250" height="8" fill="#34495e" rx="2" />
-                    <text x="250" y="75" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">QUADRO DE SLIDES</text>
-                    
-                    <rect x="380" y="50" width="60" height="10" fill="#e67e22" />
-                    <text x="410" y="40" text-anchor="middle" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
-                    
-                    <text x="250" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - DGF</text>
-                </svg>
-            </div>
-
-            <div style="width: 280px; background: white; border-left: 1px solid #dcdde1; padding: 20px; display: flex; flex-direction: column;">
-                <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #7f8c8d; letter-spacing: 1px; text-transform: uppercase;">Diretoria</h3>
+        <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
+            <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+                <rect x="50" y="50" width="280" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
                 
-                <div onclick="focarDiretorDGF()" style="padding: 15px; background: #fdfdfd; border: 1px solid #f1f2f6; border-radius: 8px; cursor: pointer; transition: all 0.3s;" 
-                     onmouseover="this.style.borderLeft='4px solid #3498db'; this.style.background='#f0f7ff'" 
-                     onmouseout="this.style.borderLeft='1px solid #f1f2f6'; this.style.background='#fdfdfd'">
-                    <div style="font-weight: bold; color: #2c3e50; font-size: 13px;">MAURO ATAÍDE DA SILVA JÚNIOR</div>
-                    <div style="color: #3498db; font-size: 11px; margin-top: 5px; font-weight: bold;">Diretor Geral de Finanças</div>
-                </div>
+                <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
+                <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
 
-                <div style="margin-top: auto; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 11px; color: #95a5a6;">
-                    ℹ️ Clique no nome para localizar a estação de trabalho no mapa.
-                </div>
-            </div>
+                <rect x="55" y="130" width="40" height="240" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
+                <rect x="95" y="145" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="205" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="265" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="95" y="325" width="8" height="30" fill="#3498db" rx="1" />
+
+                <rect x="55" y="380" width="45" height="40" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5" />
+                <rect x="62" y="422" width="30" height="8" fill="#3498db" rx="1" />
+
+                <rect x="140" y="140" width="80" height="250" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
+                <rect x="132" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="132" y="215" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="132" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="132" y="335" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="220" y="155" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="220" y="215" width="8" height="30" fill="#3498db" rx="1" />
+                <rect x="220" y="275" width="8" height="30" fill="#3498db" rx="1" /> 
+                <rect x="220" y="335" width="8" height="30" fill="#3498db" rx="1" />
+
+                <rect x="290" y="52" width="40" height="396" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
+                <rect x="282" y="80" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="140" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="200" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="260" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="320" width="8" height="35" fill="#3498db" rx="1" />
+                <rect x="282" y="380" width="8" height="35" fill="#3498db" rx="1" />
+
+                <text x="190" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GC</text>
+            </svg>
         </div>
     `;
 };
-
-    // Nova Função: abrir os detalhes da sala SFES
-window.abrirSFES = () => {
-    // Função para destacar a cadeira do Superintendente
-    window.focarSuperintendenteSFES = () => {
-        const assento = document.getElementById('assento-jose');
-        const encosto = document.getElementById('encosto-jose');
-        
-        // Reseta e destaca em verde
-        if (assento && encosto) {
-            assento.setAttribute('fill', '#2ecc71');
-            encosto.setAttribute('fill', '#27ae60');
-        }
-        
-        // Alerta corporativo
-        alert('Superintendente: José Do Carmo Fernandes Da Silva');
-    };
-
-    conteudo.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala SFES</h2>
-            <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
-        </div>
-        
-        <div style="display: flex; width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; border: 1px solid #dcdde1; overflow: hidden;">
-            
-            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
-                <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
-                    <rect x="50" y="50" width="400" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
-                    
-                    <rect x="60" y="50" width="60" height="10" fill="#e67e22" />
-                    <text x="90" y="40" text-anchor="middle" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
-
-                    <g transform="rotate(180, 385, 250)">
-                        <polyline points="445,190 385,190 385,260 325,260 325,310 445,310 445,190" 
-                            fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
-                        
-                        <g onclick="focarSuperintendenteSFES()" style="cursor: pointer;">
-                            <title>Superintendente</title>
-                            <rect id="assento-jose" x="340" y="220" width="35" height="25" fill="#3498db" rx="2" />
-                            <rect id="encosto-jose" x="340" y="215" width="35" height="6" fill="#2980b9" rx="1" />
-                        </g>
-                    </g>
-
-                    <text x="250" y="35" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - SFES</text>
-                </svg>
-            </div>
-
-            <div style="width: 280px; background: white; border-left: 1px solid #dcdde1; padding: 20px; display: flex; flex-direction: column;">
-                <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #7f8c8d; letter-spacing: 1px; text-transform: uppercase;">Gestão</h3>
-                
-                <div onclick="focarSuperintendenteSFES()" style="padding: 15px; background: #fdfdfd; border: 1px solid #f1f2f6; border-radius: 8px; cursor: pointer; transition: all 0.3s;" 
-                     onmouseover="this.style.borderLeft='4px solid #3498db'; this.style.background='#f0f7ff'" 
-                     onmouseout="this.style.borderLeft='1px solid #f1f2f6'; this.style.background='#fdfdfd'">
-                    <div style="font-weight: bold; color: #2c3e50; font-size: 13px;">JOSÉ DO CARMO FERNANDES DA SILVA</div>
-                    <div style="color: #3498db; font-size: 11px; margin-top: 5px; font-weight: bold;">Superintendente</div>
-                </div>
-
-                <div style="margin-top: auto; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 11px; color: #95a5a6;">
-                    ℹ️ Clique no nome para localizar a estação de trabalho no mapa.
-                </div>
-            </div>
-        </div>
-    `;
-};
-
     conteudo.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #1abc9c; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
             <h2 style="margin:0; font-size: 18px; color: #2c3e50;">🗺️ Mapa de Ocupação DGF - Layout Profissional</h2>
@@ -1780,8 +1542,9 @@ window.abrirSFES = () => {
                     .label-sala { font-family: 'Segoe UI', Arial; font-size: 11px; font-weight: bold; fill: #34495e; pointer-events: none; text-transform: uppercase; }
                     .mesa-dgf { fill: url(#gradMesa); stroke: #dcdde1; stroke-width: 1.5; rx: 8; }
                     .pc-dgf { fill: #3498db; fill-opacity: 0.8; rx: 2; }
-                    .btn-tesouro { fill: url(#gradMesa); stroke: #dcdde1; stroke-width: 1.5; cursor: pointer; rx: 8; transition: 0.3s; }
-                    .btn-pc { fill: url(#gradMesa); stroke: #dcdde1; stroke-width: 1.5; cursor: pointer; rx: 8; transition: 0.3s; }
+                    .btn-tesouro { fill: #1abc9c; stroke: #16a085; stroke-width: 2; cursor: pointer; rx: 8; transition: 0.3s; }
+                    .btn-pc { fill: #1abc9c; stroke: #16a085; stroke-width: 2; cursor: pointer; rx: 8; transition: 0.3s; }
+                    .label-tesouro, .label-pc { font-family: 'Segoe UI', Arial; font-size: 9px; font-weight: bold; fill: #ffffff; pointer-events: none; }
                 </style>
 
                 <rect x="5" y="5" width="890" height="660" class="parede-externa" />
@@ -1797,11 +1560,9 @@ window.abrirSFES = () => {
 
                 <rect x="730" y="20" width="150" height="170" class="setor-sala" onclick="alert('Setor: GPAG')" />
                 <text x="805" y="105" text-anchor="middle" class="label-sala">GPAG</text>
-                
-                <rect x="730" y="190" width="150" height="70" class="setor-sala" onclick="abrirSFES()" />
+                <rect x="730" y="190" width="150" height="70" class="setor-sala" onclick="alert('Setor: SFES')" />
                 <text x="805" y="230" text-anchor="middle" class="label-sala">SFES</text>
-                
-                <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="abrirDGF()" />
+                <rect x="730" y="260" width="150" height="80" class="setor-sala" onclick="alert('Setor: DGF')" />
                 <text x="805" y="305" text-anchor="middle" class="label-sala" style="fill:#e74c3c">DGF</text>
                 
                 <rect x="730" y="340" width="150" height="310" class="setor-sala" onclick="abrirGC()" /> 
@@ -1825,7 +1586,6 @@ window.abrirSFES = () => {
 
                 <rect x="370" y="220" width="320" height="60" class="mesa-dgf" />
                 <rect x="385" y="225" width="22" height="12" class="pc-dgf" /> <rect x="460" y="225" width="22" height="12" class="pc-dgf" /> <rect x="535" y="225" width="22" height="12" class="pc-dgf" /> <rect x="610" y="225" width="22" height="12" class="pc-dgf" />
-                <rect x="385" y="263" width="22" height="12" class="pc-dgf" /> <rect x="460" y="263" width="22" height="12" class="pc-dgf" /> <stop offset="100%" style="stop-color:#f1f2f6;stop-opacity:1" />
                 <rect x="385" y="263" width="22" height="12" class="pc-dgf" /> <rect x="460" y="263" width="22" height="12" class="pc-dgf" /> <rect x="535" y="263" width="22" height="12" class="pc-dgf" /> <rect x="610" y="263" width="22" height="12" class="pc-dgf" />
 
                 <rect x="370" y="300" width="320" height="60" class="mesa-dgf" />
@@ -1849,12 +1609,9 @@ window.abrirSFES = () => {
                 <rect x="625" y="385" width="10" height="22" class="pc-dgf" /> <rect x="625" y="419" width="10" height="22" class="pc-dgf" /> <rect x="625" y="453" width="10" height="22" class="pc-dgf" />
 
                 <rect x="20" y="505" width="320" height="45" class="btn-pc" onclick="alert('Coordenação de Convênios')" />
-                <rect x="35" y="510" width="22" height="10" class="pc-dgf" /> <rect x="110" y="510" width="22" height="10" class="pc-dgf" /> <rect x="185" y="510" width="22" height="10" class="pc-dgf" /> <rect x="260" y="510" width="22" height="10" class="pc-dgf" />
-                <rect x="35" y="535" width="22" height="10" class="pc-dgf" /> <rect x="110" y="535" width="22" height="10" class="pc-dgf" /> <rect x="185" y="535" width="22" height="10" class="pc-dgf" /> <rect x="260" y="535" width="22" height="10" class="pc-dgf" />
-                
+                <text x="180" y="533" text-anchor="middle" class="label-pc">Coordenação de Prestação de Contas</text>
                 <rect x="370" y="505" width="320" height="45" class="btn-tesouro" onclick="alert('Coordenação de Liquidação')" />
-                <rect x="385" y="510" width="22" height="10" class="pc-dgf" /> <rect x="460" y="510" width="22" height="10" class="pc-dgf" /> <rect x="535" y="510" width="22" height="10" class="pc-dgf" /> <rect x="610" y="510" width="22" height="10" class="pc-dgf" />
-                <rect x="385" y="535" width="22" height="10" class="pc-dgf" /> <rect x="460" y="535" width="22" height="10" class="pc-dgf" /> <rect x="535" y="535" width="22" height="10" class="pc-dgf" /> <rect x="610" y="535" width="22" height="10" class="pc-dgf" />
+                <text x="530" y="533" text-anchor="middle" class="label-tesouro">Coordenação de Liquidação (Tesouro)</text>
 
                 <rect x="20" y="560" width="320" height="40" class="mesa-dgf" />
                 <rect x="35" y="565" width="22" height="10" class="pc-dgf" /> <rect x="110" y="565" width="22" height="10" class="pc-dgf" /> <rect x="185" y="565" width="22" height="10" class="pc-dgf" /> <rect x="260" y="565" width="22" height="10" class="pc-dgf" />
