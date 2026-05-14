@@ -1739,6 +1739,19 @@ window.abrirSFES = () => {
             encosto.setAttribute('fill', '#27ae60');
         }
         
+        // Nova Função: abrir os detalhes da sala SFES
+window.abrirSFES = () => {
+    // Função para destacar a cadeira do Superintendente
+    window.focarSuperintendenteSFES = () => {
+        const assento = document.getElementById('assento-jose');
+        const encosto = document.getElementById('encosto-jose');
+        
+        // Reseta e destaca em verde
+        if (assento && encosto) {
+            assento.setAttribute('fill', '#2ecc71');
+            encosto.setAttribute('fill', '#27ae60');
+        }
+        
         // Alerta corporativo
         alert('Superintendente: José Do Carmo Fernandes Da Silva');
     };
