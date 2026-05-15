@@ -1527,40 +1527,71 @@ if (pagina === "mapa") {
     conteudo.style.padding = "10px";
 
     // Função para abrir os detalhes da sala GCE
-    window.abrirGCE = () => {
-        conteudo.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GCE</h2>
-                <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
-            </div>
-            
-            <div style="width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; display: flex; justify-content: center; align-items: center; border: 1px solid #dcdde1;">
-                <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
+window.abrirGCE = () => {
+    // Função interna para destacar a cadeira ao clicar no nome da lista
+    window.focarFuncionarioGCE = (id) => {
+        // Reseta todas as cadeiras da sala GCE para azul
+        document.querySelectorAll('.cadeira-gce').forEach(c => c.setAttribute('fill', '#3498db'));
+        
+        // Destaca a selecionada em verde
+        const assento = document.getElementById(`assento-${id}`);
+        if(assento) {
+            assento.setAttribute('fill', '#2ecc71');
+        }
+    };
+
+    conteudo.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background: white; border-radius: 10px; border-left: 5px solid #34495e; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <h2 style="margin:0; font-size: 18px; color: #2c3e50;">📍 Detalhes: Sala GCE</h2>
+            <button onclick="location.reload()" style="padding: 8px 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅ Voltar ao Mapa Geral</button>
+        </div>
+        
+        <div style="display: flex; width: 100%; height: calc(100vh - 150px); background: #f1f2f6; border-radius: 12px; border: 1px solid #dcdde1; overflow: hidden;">
+            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                <svg viewBox="0 0 450 500" preserveAspectRatio="xMidYMid meet" style="width: 95%; height: 95%;">
                     <rect x="50" y="50" width="350" height="400" fill="white" stroke="#2c3e50" stroke-width="5" rx="10" />
                     
                     <rect x="50" y="65" width="10" height="60" fill="#e67e22" />
                     <text x="65" y="100" style="font-family: Arial; font-size: 14px; font-weight: bold; fill: #e67e22;">porta</text>
 
                     <rect x="80" y="160" width="70" height="150" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="70" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="70" y="260" width="10" height="30" fill="#3498db" rx="2" />
-                    <rect x="150" y="180" width="10" height="30" fill="#3498db" rx="2" /> <rect x="150" y="260" width="10" height="30" fill="#3498db" rx="2" />
-                    <text x="115" y="235" text-anchor="middle" transform="rotate(-90 115,235)" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 1</text>
+                    <rect id="assento-risaldo" class="cadeira-gce" x="150" y="180" width="10" height="30" fill="#3498db" rx="2" />
+                    <rect id="assento-alexandre-silva" class="cadeira-gce" x="150" y="260" width="10" height="30" fill="#3498db" rx="2" />
+                    <rect id="assento-alexandre-moura" class="cadeira-gce" x="70" y="180" width="10" height="30" fill="#3498db" rx="2" />
+                    <rect class="cadeira-gce" x="70" y="260" width="10" height="30" fill="#3498db" rx="2" /> 
 
                     <rect x="240" y="80" width="110" height="60" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="350" y="95" width="10" height="30" fill="#3498db" rx="2" />
-                    <text x="295" y="115" text-anchor="middle" style="font-family: Arial; font-size: 12px; fill: #7f8c8d; font-weight: bold;">mesa 3</text>
+                    <rect id="assento-jaqueline" class="cadeira-gce" x="350" y="95" width="10" height="30" fill="#3498db" rx="2" />
 
                     <rect x="260" y="160" width="80" height="230" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8" />
-                    <rect x="250" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="250" y="330" width="10" height="35" fill="#3498db" rx="2" />
-                    <rect x="340" y="180" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect x="340" y="330" width="10" height="35" fill="#3498db" rx="2" />
-                    <text x="300" y="275" text-anchor="middle" transform="rotate(-90 300,275)" style="font-family: Arial; font-size: 14px; fill: #2c3e50; font-weight: bold;">mesa 2</text>
+                    <rect id="assento-flavia" class="cadeira-gce" x="340" y="180" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect id="assento-myrna" class="cadeira-gce" x="340" y="255" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect id="assento-rafaela" class="cadeira-gce" x="340" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect id="assento-cleide" class="cadeira-gce" x="250" y="180" width="10" height="35" fill="#3498db" rx="2" />
+                    <rect class="cadeira-gce" x="250" y="255" width="10" height="35" fill="#3498db" rx="2" /> <rect id="assento-ladjane" class="cadeira-gce" x="250" y="330" width="10" height="35" fill="#3498db" rx="2" />
+                    
 
                     <text x="225" y="45" text-anchor="middle" style="font-family: Arial; font-size: 20px; font-weight: bold; fill: #34495e;">LAYOUT INTERNO - GCE</text>
                 </svg>
             </div>
-        `;
-    };
 
+            <div style="width: 280px; background: white; border-left: 1px solid #dcdde1; padding: 20px; overflow-y: auto;">
+                <h3 style="margin: 0 0 15px 0; font-size: 14px; color: #7f8c8d; letter-spacing: 1px; text-transform: uppercase;">Equipe GCE</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button onclick="focarFuncionarioGCE('jaqueline')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Jaqueline Rodrigues</b></button>
+                    <button onclick="focarFuncionarioGCE('flavia')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Flavia Maria Albuquerque</b></button>
+                    <button onclick="focarFuncionarioGCE('myrna')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Myrna Marroquim Soares</b></button>
+                    <button onclick="focarFuncionarioGCE('rafaela')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Rafaela Aragão Sousa</b></button>
+                    <button onclick="focarFuncionarioGCE('ladjane')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Ladjane Maria da Silva</b></button>
+                    <button onclick="focarFuncionarioGCE('cleide')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Cleide Maria Aragao</b></button>
+                    <button onclick="focarFuncionarioGCE('risaldo')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Risaldo Francisco</b></button>
+                    <button onclick="focarFuncionarioGCE('alexandre-silva')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Alexandre Ribeiro da Silva</b></button>
+                    <button onclick="focarFuncionarioGCE('alexandre-moura')" style="padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; text-align: left; cursor: pointer; font-size: 13px;"><b>Alexandre Ribeiro de Moura</b></button>
+                </div>
+            </div>
+        </div>
+    `;
+};
 
     // Função para abrir os detalhes da sala GC
 window.abrirGC = () => {
